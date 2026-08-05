@@ -3,28 +3,516 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Jwala Chaubey — Cloud & MLOps Engineer | AWS · Terraform · ECS/EKS</title>
-<meta name="description" content="Infra Technology Specialist at Cognizant building JPMC-scale AWS infrastructure. Expert in Terraform, ECS/EKS, TypeScript. Open to MLOps, Platform Engineering & GenAI roles — ₹35–50 LPA."/>
+<title>Jwala Chaubey — AI Infrastructure & Platform Engineer</title>
+<meta name="description" content="AI Infrastructure and Platform Engineer with 7+ years building production AWS platforms, Kubernetes systems, Terraform automation, observability, and agentic AI workflows."/>
 <meta name="theme-color" content="#070707"/>
 <link rel="canonical" href="https://theycallmejc.github.io/"/>
-<meta property="og:title" content="Jwala Chaubey — Cloud & MLOps Engineer"/>
-<meta property="og:description" content="7+ years building JPMC-scale AWS infra. Terraform · ECS/EKS · Bedrock. Now shipping KubeSage AI. Open to ₹35–50L MLOps/Platform roles."/>
+<meta property="og:title" content="Jwala Chaubey — AI Infrastructure & Platform Engineer"/>
+<meta property="og:description" content="Production cloud platforms, Kubernetes intelligence, AI agents, and reliable engineering automation."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://theycallmejc.github.io/"/>
 <meta property="og:image" content="https://theycallmejc.github.io/assets/og-image.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Jwala Chaubey — Cloud & MLOps Engineer"/>
-<meta name="twitter:description" content="7+ years building JPMC-scale AWS infra. Terraform · ECS/EKS · Bedrock. Now shipping KubeSage AI."/>
+<meta name="twitter:title" content="Jwala Chaubey — AI Infrastructure & Platform Engineer"/>
+<meta name="twitter:description" content="Building reliable AI infrastructure, autonomous engineering workflows, and production cloud platforms."/>
 <meta name="twitter:image" content="https://theycallmejc.github.io/assets/og-image.jpg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap" media="print" onload="this.media='all'"/>
 <noscript>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&display=swap"/>
-<style>body{cursor:auto}#cur,#ring{display:none}</style>
+<style>body{cursor:auto}#cur,#ring{display:none}
+/* ═══════════════════════════════════════════════════════════════
+   CLEAN UI OVERRIDES — simplified, spacious, content-first
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#090909;
+  --surface:#0d0d0d;
+  --s2:#121212;
+  --s3:#171717;
+  --border:#202020;
+  --border2:#2a2a2a;
+  --orange:#ff6a2a;
+  --od:rgba(255,106,42,.22);
+  --og:rgba(255,106,42,.06);
+  --text:#f3f3f1;
+  --tm:#a7a7a2;
+  --td:#74746f;
+}
+
+/* Remove decorative noise and custom cursor. */
+body{
+  cursor:auto;
+  font-size:14px;
+  line-height:1.65;
+  background:
+    radial-gradient(circle at 80% 0%,rgba(255,106,42,.045),transparent 28%),
+    var(--bg);
+}
+body::before,#cur,#ring,.scroll-hint{display:none!important}
+a,.btn,.nav-btn,.fsub{cursor:pointer}
+
+/* Navigation */
+nav{
+  height:68px;
+  padding:0 40px;
+  background:rgba(9,9,9,.88);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav-logo{font-size:19px}
+.nav-logo em{display:none}
+.nav-links{gap:30px}
+.nav-links a{
+  font-size:10px;
+  letter-spacing:.14em;
+}
+.nav-dot{
+  max-width:260px;
+  white-space:nowrap;
+}
+.nav-btn{
+  padding:9px 17px;
+  border-radius:6px;
+}
+
+/* Global spacing */
+.w{
+  max-width:1180px;
+  padding:0 40px;
+}
+section{padding:88px 0}
+.sh{
+  margin-bottom:36px;
+}
+.st{
+  font-size:clamp(26px,3vw,38px);
+  letter-spacing:-1.2px;
+}
+
+/* Hero: single-column, no image, stronger hierarchy */
+#hero{
+  min-height:auto;
+  padding:148px 0 92px;
+  overflow:visible;
+}
+#hero::after{
+  width:620px;
+  height:620px;
+  top:-160px;
+  right:-260px;
+  opacity:.8;
+}
+.hero-inner{
+  display:block;
+  max-width:980px;
+}
+.hero-eyebrow{
+  margin-bottom:28px;
+  font-size:10px;
+  letter-spacing:.2em;
+}
+h1.hero-name{
+  font-size:clamp(62px,9vw,116px);
+  line-height:.82;
+  letter-spacing:-7px;
+  max-width:920px;
+  margin-bottom:30px;
+}
+.hero-role{
+  margin:0 0 20px;
+  font-size:13px;
+}
+.hero-blurb{
+  max-width:720px;
+  margin:0 0 34px;
+  padding-left:20px;
+  font-size:15px;
+  line-height:1.85;
+  border-left:1px solid var(--border2);
+}
+.hero-stats{
+  max-width:760px;
+  margin:0 0 32px;
+  border-radius:8px;
+  background:rgba(255,255,255,.012);
+}
+.hstat{
+  padding:18px 22px;
+}
+.sv{
+  font-size:22px;
+  letter-spacing:-.8px;
+}
+.sl2{
+  margin-top:5px;
+  font-size:9px;
+  line-height:1.5;
+}
+.hero-cta{
+  gap:9px;
+}
+.btn{
+  min-height:44px;
+  padding:11px 19px;
+  border-radius:6px;
+  font-size:11px;
+}
+.btn-p{
+  box-shadow:none;
+}
+.btn-g{
+  background:rgba(255,255,255,.015);
+}
+
+/* Remove the old photo styles from layout completely. */
+.hero-photo-wrap,.hero-photo-frame,.photo-badge{display:none!important}
+
+/* Marquee becomes quieter */
+.marquee-wrap{
+  background:#0b0b0b;
+}
+.marquee-inner{
+  padding:13px 0;
+  opacity:.78;
+}
+
+/* Cleaner cards */
+.now-grid,.skills-grid,.proj-grid{
+  border-radius:10px;
+}
+.now-card,.sg,.pc{
+  padding:28px;
+}
+.now-title{
+  font-size:24px;
+}
+.principle{
+  border-radius:7px;
+  background:#0f0f0f;
+}
+.proj-feat{
+  padding:38px;
+  border-radius:10px 10px 0 0;
+  grid-template-columns:minmax(0,1fr) 290px;
+}
+.proj-feat-visual{
+  border-radius:8px;
+}
+.pc{
+  min-height:100%;
+}
+.ptitle{
+  font-size:20px;
+}
+
+/* Experience */
+.tl{padding-left:34px}
+.tdot{left:-34px}
+.ti{margin-bottom:44px}
+
+/* Contact */
+.contact-wrap{
+  gap:48px;
+}
+.cl{
+  border-radius:7px;
+}
+.fi,.ft{
+  border-radius:7px;
+}
+
+/* Footer */
+footer{
+  padding:22px 40px;
+}
+
+/* Responsive */
+@media(max-width:900px){
+  nav{padding:0 22px}
+  .w{padding:0 24px}
+  #hero{padding:126px 0 76px}
+  h1.hero-name{
+    font-size:clamp(58px,14vw,94px);
+    letter-spacing:-5px;
+  }
+  .proj-feat{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  nav{height:60px;padding:0 18px}
+  .nav-dot{display:none}
+  .w{padding:0 18px}
+  section{padding:66px 0}
+  #hero{padding:106px 0 64px}
+  h1.hero-name{
+    font-size:clamp(50px,16vw,76px);
+    letter-spacing:-4px;
+  }
+  .hero-blurb{
+    font-size:14px;
+    padding-left:14px;
+  }
+  .hero-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .hstat{
+    min-width:0;
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+  }
+  .hstat:nth-child(2n){border-right:none}
+  .hstat:nth-last-child(-n+2){border-bottom:none}
+  .hero-cta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .hero-cta .btn:first-child{
+    grid-column:1/-1;
+    justify-content:center;
+  }
+  .btn{justify-content:center}
+  footer{padding:20px 18px}
+}
+@media(max-width:430px){
+  .hero-cta{grid-template-columns:1fr}
+  .hero-cta .btn:first-child{grid-column:auto}
+  .hero-stats{grid-template-columns:1fr}
+  .hstat{
+    border-right:none!important;
+    border-bottom:1px solid var(--border)!important;
+  }
+  .hstat:last-child{border-bottom:none!important}
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHT PRODUCT UI — clean, airy, Openworker-inspired motion
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#f7f8fb;
+  --surface:#ffffff;
+  --s2:#f2f4f8;
+  --s3:#eceff4;
+  --border:#e4e7ec;
+  --border2:#d6dae2;
+  --orange:#ff6a2a;
+  --od:rgba(255,106,42,.18);
+  --og:rgba(255,106,42,.07);
+  --green:#15a05c;
+  --gg:rgba(21,160,92,.10);
+  --text:#111318;
+  --tm:#50545d;
+  --td:#7c818c;
+}
+
+html{background:var(--bg)}
+body{
+  background:
+    radial-gradient(circle at 85% 8%, rgba(255,106,42,.10), transparent 26%),
+    radial-gradient(circle at 10% 22%, rgba(80,110,255,.07), transparent 24%),
+    var(--bg);
+  color:var(--text);
+}
+
+/* Header */
+nav{
+  background:rgba(247,248,251,.82);
+  border-bottom:1px solid rgba(17,19,24,.07);
+  box-shadow:0 8px 30px rgba(17,19,24,.04);
+}
+.nav-logo{color:var(--orange)}
+.nav-links a{color:var(--td)}
+.nav-links a:hover{color:var(--text)}
+.nav-dot{color:var(--tm)}
+.nav-btn{box-shadow:0 10px 24px rgba(255,106,42,.18)}
+
+/* Main sections */
+#hero::after{
+  background:radial-gradient(circle,rgba(255,106,42,.14) 0%,transparent 68%);
+}
+.hero-blurb{
+  color:var(--tm);
+  border-left-color:var(--border2);
+}
+.hero-stats{
+  background:rgba(255,255,255,.75);
+  border-color:var(--border);
+  box-shadow:0 20px 50px rgba(17,19,24,.06);
+}
+.hstat{border-color:var(--border)}
+.btn-g{
+  color:var(--text);
+  border-color:var(--border2);
+  background:rgba(255,255,255,.72);
+}
+.btn-g:hover{
+  background:#fff;
+  border-color:var(--orange);
+}
+.marquee-wrap{
+  background:rgba(255,255,255,.78);
+  border-color:var(--border);
+}
+#now,#skills{
+  background:transparent;
+  border-color:var(--border);
+}
+.now-grid,.skills-grid,.proj-grid{
+  background:var(--border);
+  border-color:var(--border);
+  box-shadow:0 22px 60px rgba(17,19,24,.05);
+}
+.now-card,.sg,.pc,.proj-feat{
+  background:rgba(255,255,255,.90);
+}
+.now-card:hover,.sg:hover,.pc:hover,.proj-feat:hover{
+  background:#fff;
+}
+.principle,.proj-feat-visual,.fi,.ft{
+  background:#fff;
+}
+.tag{
+  background:#fff;
+  border-color:var(--border);
+  color:var(--tm);
+}
+.tag:hover{
+  background:var(--og);
+}
+.ecli,.eperiod{
+  background:#fff;
+  border-color:var(--border);
+}
+.cl{
+  background:rgba(255,255,255,.72);
+}
+footer{
+  background:rgba(255,255,255,.75);
+  border-color:var(--border);
+}
+
+/* Remove terminal-like visual noise */
+.pv-bar,.proj-feat-visual::before{display:none}
+.proj-feat-visual{padding-top:24px}
+body::before{display:none!important}
+
+/* Page shift / reveal motion */
+main{
+  animation:pageEnter .8s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes pageEnter{
+  from{opacity:0;transform:translateY(18px) scale(.995)}
+  to{opacity:1;transform:none}
+}
+section{
+  position:relative;
+}
+section::before{
+  content:'';
+  position:absolute;
+  inset:0 auto auto 0;
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--border),transparent);
+  opacity:.55;
+}
+.fade,.ti{
+  opacity:0;
+  transform:translateY(26px);
+  transition:
+    opacity .75s cubic-bezier(.16,1,.3,1),
+    transform .75s cubic-bezier(.16,1,.3,1);
+}
+.fade.v,.ti.v{
+  opacity:1;
+  transform:none;
+}
+.now-card,.sg,.pc,.proj-feat,.cl,.principle{
+  transition:
+    transform .28s cubic-bezier(.16,1,.3,1),
+    box-shadow .28s ease,
+    border-color .28s ease,
+    background .28s ease;
+}
+.now-card:hover,.sg:hover,.pc:hover,.proj-feat:hover,.principle:hover{
+  transform:translateY(-4px);
+  box-shadow:0 24px 60px rgba(17,19,24,.08);
+}
+.cl:hover{
+  transform:translateX(6px);
+  box-shadow:0 16px 34px rgba(17,19,24,.06);
+}
+.hero-eyebrow{
+  animation:slideIn .8s .08s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-name{
+  animation:slideIn .9s .14s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-role{
+  animation:slideIn .9s .2s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-blurb{
+  animation:slideIn .9s .26s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-stats{
+  animation:slideIn .9s .32s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-cta{
+  animation:slideIn .9s .38s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:none}
+}
+
+/* Soft floating ambient shapes */
+body::after{
+  content:'';
+  position:fixed;
+  right:-140px;
+  bottom:-160px;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(80,110,255,.08),transparent 68%);
+  pointer-events:none;
+  z-index:-1;
+  animation:floatBlob 10s ease-in-out infinite alternate;
+}
+@keyframes floatBlob{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-24px,-18px,0)}
+}
+
+/* Motion accessibility */
+@media(prefers-reduced-motion:reduce){
+  main,.hero-eyebrow,.hero-name,.hero-role,.hero-blurb,.hero-stats,.hero-cta,body::after{
+    animation:none!important;
+  }
+  .fade,.ti{opacity:1;transform:none}
+}
+
+</style>
 </noscript>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%230a0a0a'/><text y='.9em' font-size='80' x='10'>⚡</text></svg>"/>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Jwala Chaubey","jobTitle":"Infrastructure Technology Specialist","description":"Cloud & Platform Engineer specializing in AWS, Terraform, and MLOps, building production infrastructure for JPMorgan Chase via Cognizant.","worksFor":{"@type":"Organization","name":"Cognizant"},"url":"https://theycallmejc.github.io","image":"https://theycallmejc.github.io/assets/og-image.jpg","sameAs":["https://linkedin.com/in/jwala-chaubey","https://github.com/theycallmejc","https://dev.to/viansh"],"knowsAbout":["AWS","Terraform","MLOps","ECS","EKS","TypeScript","DevOps","Kubernetes","GenAI"],"address":{"@type":"PostalAddress","addressLocality":"Pune","addressCountry":"IN"}}</script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Jwala Chaubey",
+  "jobTitle":"AI Infrastructure and Platform Engineer",
+  "description":"Platform, DevOps and SRE engineer building production AWS platforms, Kubernetes systems and agentic AI workflows.",
+  "worksFor":{"@type":"Organization","name":"Cognizant"},
+  "url":"https://theycallmejc.github.io/",
+  "sameAs":[
+    "https://www.linkedin.com/in/jwala-chaubey/",
+    "https://github.com/theycallmejc"
+  ],
+  "knowsAbout":[
+    "AI Agents","AI Infrastructure","AWS","Kubernetes","Terraform",
+    "Platform Engineering","DevOps","SRE","Amazon Bedrock","MLOps","LLMOps"
+  ],
+  "address":{"@type":"PostalAddress","addressLocality":"Pune","addressCountry":"IN"}
+}</script>
 <style>
 :root{
   --bg:#070707;--surface:#0e0e0e;--s2:#131313;--s3:#191919;
@@ -170,6 +658,25 @@ h1.hero-name .acc{color:var(--orange)}
 .tag:hover{border-color:var(--orange);color:var(--orange);background:var(--og)}
 .tag.h{border-color:var(--od);color:var(--orange)}
 .tag.l{border-color:rgba(57,255,20,.2);color:#39ff14;font-style:italic}
+
+/* ═══ NOW / OPERATING SYSTEM ═══ */
+#now{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.now-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:5px;overflow:hidden}
+.now-card{background:var(--bg);padding:32px;min-height:210px;position:relative;overflow:hidden}
+.now-card::after{content:'';position:absolute;inset:auto -20% -55% auto;width:220px;height:220px;background:radial-gradient(circle,var(--og),transparent 70%);pointer-events:none}
+.now-kicker{font-size:10px;color:var(--orange);letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.now-title{font-family:var(--display);font-size:22px;line-height:1.15;letter-spacing:-.7px;margin-bottom:12px}
+.now-copy{font-size:12px;color:var(--tm);line-height:1.8;max-width:620px}
+.now-list{display:grid;gap:10px;margin-top:18px}
+.now-item{display:grid;grid-template-columns:92px 1fr;gap:12px;padding-top:10px;border-top:1px solid var(--border)}
+.now-state{font-size:9px;color:var(--green);text-transform:uppercase;letter-spacing:.12em}
+.now-value{font-size:12px;color:var(--tm)}
+.principles{display:grid;gap:12px;margin-top:6px}
+.principle{padding:14px;border:1px solid var(--border);border-radius:3px;background:var(--surface)}
+.principle strong{display:block;color:var(--text);font-family:var(--display);font-size:14px;margin-bottom:4px}
+.principle span{font-size:11px;color:var(--td);line-height:1.6}
+@media(max-width:900px){.now-grid{grid-template-columns:1fr}}
+
 /* ═══ PROJECTS ═══ */
 .proj-list{display:flex;flex-direction:column}
 /* FEATURED project — larger, dominant */
@@ -311,14 +818,15 @@ footer a{color:var(--orange);text-decoration:none}
   <a href="#hero" class="nav-logo" aria-label="Jwala Chaubey home">JC<em>// jwala.chaubey</em></a>
   <ul class="nav-links" role="list">
     <li><a href="#hero">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
+    <li><a href="#now">Now</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#skills">Systems</a></li>
+        <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-r">
-    <div class="nav-dot" role="status"><span class="sdot" aria-hidden="true"></span>Open to Opportunities</div>
-    <a href="#contact" class="nav-btn" id="nav-hire">Hire Me ▶</a>
+    <div class="nav-dot" role="status"><span class="sdot" aria-hidden="true"></span>Open to Senior Platform / AI Infra Roles</div>
+    <a href="#contact" class="nav-btn" id="nav-hire">Start a Conversation ▶</a>
   </div>
 </nav>
 <main>
@@ -327,75 +835,29 @@ footer a{color:var(--orange);text-decoration:none}
     <div class="hero-inner">
       <!-- LEFT -->
       <div>
-        <div class="hero-eyebrow">Cloud · MLOps · Platform Engineering</div>
+        <div class="hero-eyebrow">AI Infrastructure · Platform Engineering · SRE</div>
         <h1 class="hero-name">Jwala<br/><span class="acc">Chaubey.</span></h1>
-        <p class="hero-role">Infra Tech Specialist @ Cognizant &nbsp;·&nbsp; <span class="typed" id="typed"></span></p>
+        <p class="hero-role">SRE Lead / Platform Engineer @ Cognizant &nbsp;·&nbsp; <span class="typed" id="typed"></span></p>
         <p class="hero-blurb">
-          I build <strong>cloud infrastructure that holds up at 3am</strong> — scaling AWS workloads for JPMC, architecting zero-downtime deployments, and wiring observability into every layer. Now proving my MLOps transition by building <strong>KubeSage AI</strong>, a Kubernetes incident-intelligence platform, from the ground up.
+          I engineer <strong>production systems that survive failure</strong>—multi-region AWS platforms,
+          zero-downtime delivery, infrastructure as code, and observability that cuts detection from
+          minutes to seconds. I am now applying that operating discipline to <strong>AI agents,
+          Kubernetes intelligence, and agentic software-delivery workflows</strong>.
         </p>
-        <div class="hero-stats" role="list" aria-label="Key achievements">
-          <div class="hstat" role="listitem"><div class="sv">7+</div><div class="sl2">Yrs Cloud Infra</div></div>
-          <div class="hstat" role="listitem"><div class="sv">JPMC</div><div class="sl2">Client Scale</div></div>
-          <div class="hstat" role="listitem"><div class="sv">77.6%</div><div class="sl2">Test Coverage</div></div>
-          <div class="hstat" role="listitem"><div class="sv">₹40L+</div><div class="sl2">Target Band</div></div>
+        <div class="hero-stats" role="list" aria-label="Selected engineering outcomes">
+          <div class="hstat" role="listitem"><div class="sv">7+</div><div class="sl2">Years Engineering</div></div>
+          <div class="hstat" role="listitem"><div class="sv">&lt;60s</div><div class="sl2">Recovery Time</div></div>
+          <div class="hstat" role="listitem"><div class="sv">3→30m</div><div class="sl2">Provisioning</div></div>
+          <div class="hstat" role="listitem"><div class="sv">15+</div><div class="sl2">Delivery Pipelines</div></div>
         </div>
         <div class="hero-cta">
-          <a href="#projects" class="btn btn-p" id="h-proj">▶ See My Work</a>
-          <a href="https://linkedin.com/in/jwala-chaubey" target="_blank" rel="noopener noreferrer" class="btn btn-g" id="h-li">LinkedIn ↗</a>
+          <a href="#projects" class="btn btn-p" id="h-proj">▶ Explore Case Studies</a>
+          <a href="https://www.linkedin.com/in/jwala-chaubey/" target="_blank" rel="noopener noreferrer" class="btn btn-g" id="h-li">LinkedIn ↗</a>
           <a href="https://github.com/theycallmejc" target="_blank" rel="noopener noreferrer" class="btn btn-g" id="h-gh">GitHub ↗</a>
           <!-- TODO: add resume.pdf to the repo root (same folder as index.html) for this button to work -->
           <a href="resume.pdf" class="btn btn-g" id="h-resume" download>Resume ↓</a>
         </div>
       </div>
-      <!-- RIGHT — PHOTO -->
-      <div class="hero-photo-wrap">
-        <div class="hero-photo-frame">
-          <img src="data:image/jpeg;base64,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" alt="Jwala Chaubey — Cloud & MLOps Engineer" loading="eager" decoding="async" width="320" height="400"/>
-        </div>
-        <div class="photo-badge">
-          <strong>Open to Hire</strong>
-          MLOps · Platform Eng · GenAI
-        </div>
-      </div>
-    </div>
-    <div class="scroll-hint" aria-hidden="true"><div class="sline"></div>Scroll</div>
-  </div>
-</section>
-<!-- MARQUEE -->
-<div class="marquee-wrap" aria-hidden="true">
-  <div class="marquee-inner">
-    <span class="mi"><strong>AWS</strong> ECS · EKS · Bedrock</span><span class="mdot"></span>
-    <span class="mi"><strong>Terraform</strong> IaC at Scale</span><span class="mdot"></span>
-    <span class="mi"><strong>JPMC</strong> Production Infra</span><span class="mdot"></span>
-    <span class="mi"><strong>Cognizant CIS</strong> 2022–Present</span><span class="mdot"></span>
-    <span class="mi"><strong>Dynatrace</strong> + Splunk Observability</span><span class="mdot"></span>
-    <span class="mi"><strong>Blue/Green</strong> Zero-Downtime Deploy</span><span class="mdot"></span>
-    <span class="mi"><strong>RAG Pipelines</strong> on AWS Bedrock</span><span class="mdot"></span>
-    <span class="mi"><strong>KubeSage AI</strong> Solo-Built · FastAPI + ChromaDB</span><span class="mdot"></span>
-    <span class="mi"><strong>TypeScript</strong> + Node.js</span><span class="mdot"></span>
-    <!-- duplicate for loop -->
-    <span class="mi"><strong>AWS</strong> ECS · EKS · Bedrock</span><span class="mdot"></span>
-    <span class="mi"><strong>Terraform</strong> IaC at Scale</span><span class="mdot"></span>
-    <span class="mi"><strong>JPMC</strong> Production Infra</span><span class="mdot"></span>
-    <span class="mi"><strong>Cognizant CIS</strong> 2022–Present</span><span class="mdot"></span>
-    <span class="mi"><strong>Dynatrace</strong> + Splunk Observability</span><span class="mdot"></span>
-    <span class="mi"><strong>Blue/Green</strong> Zero-Downtime Deploy</span><span class="mdot"></span>
-    <span class="mi"><strong>RAG Pipelines</strong> on AWS Bedrock</span><span class="mdot"></span>
-    <span class="mi"><strong>KubeSage AI</strong> Solo-Built · FastAPI + ChromaDB</span><span class="mdot"></span>
-    <span class="mi"><strong>TypeScript</strong> + Node.js</span><span class="mdot"></span>
-  </div>
-</div>
-<!-- SKILLS -->
-<section id="skills" aria-label="Technical skills">
-  <div class="w">
-    <div class="sh fade"><span class="sn">02.</span><h2 class="st">Tech Stack</h2><div class="sl"></div></div>
-    <div class="skills-grid fade" role="list">
-      <div class="sg" role="listitem"><div class="sg-head">☁ Cloud · AWS</div><div class="tags"><span class="tag h">Lambda</span><span class="tag h">ECS</span><span class="tag h">EKS</span><span class="tag h">Step Functions</span><span class="tag">Bedrock</span><span class="tag">SageMaker</span><span class="tag">S3</span><span class="tag">Route53</span><span class="tag">ALB/NLB</span><span class="tag">CloudWatch</span><span class="tag">IAM</span><span class="tag">VPC</span></div></div>
-      <div class="sg" role="listitem"><div class="sg-head">⚙ IaC · DevOps</div><div class="tags"><span class="tag h">Terraform</span><span class="tag h">GitHub Actions</span><span class="tag">Spinnaker</span><span class="tag">Docker</span><span class="tag">Helm</span><span class="tag">Blue/Green</span><span class="tag">FMEA</span><span class="tag">NFR/PTO</span></div></div>
-      <div class="sg" role="listitem"><div class="sg-head">⌨ Languages</div><div class="tags"><span class="tag h">TypeScript</span><span class="tag h">Python</span><span class="tag">Java</span><span class="tag">Node.js</span><span class="tag">SQL</span><span class="tag">Bash</span></div></div>
-      <div class="sg" role="listitem"><div class="sg-head">◎ Observability</div><div class="tags"><span class="tag h">Dynatrace</span><span class="tag h">Splunk SPL</span><span class="tag">Cypress</span><span class="tag">DataDog</span><span class="tag">SLO/SLI</span><span class="tag">Alerting</span></div></div>
-      <div class="sg" role="listitem"><div class="sg-head">✦ MLOps · GenAI</div><div class="tags"><span class="tag h">AWS Bedrock</span><span class="tag h">RAG Pipelines</span><span class="tag h">FastAPI</span><span class="tag h">ChromaDB</span><span class="tag l">MLflow ↗</span><span class="tag l">Kubeflow ↗</span><span class="tag l">LangChain ↗</span><span class="tag">HuggingFace</span></div></div>
-      <div class="sg" role="listitem"><div class="sg-head">◈ Architecture</div><div class="tags"><span class="tag">C4 Diagrams</span><span class="tag">Event-Driven</span><span class="tag">Microservices</span><span class="tag">SOAP · REST</span><span class="tag">PostgreSQL</span><span class="tag">DynamoDB</span></div></div>
     </div>
   </div>
 </section>
@@ -469,7 +931,7 @@ footer a{color:var(--orange);text-decoration:none}
         </div>
         <div class="pimpacts"><span class="pichip">✅ Zero data loss</span><span class="pichip">60% fewer tickets</span></div>
         <div class="pstack"><span class="tag">TypeScript</span><span class="tag">AWS S3</span><span class="tag">SOAP</span><span class="tag">PostgreSQL</span><span class="tag">Lambda</span></div>
-        <span class="pnote">Built for a JPMC engagement — private repo, details on request.</span>
+        <span class="pnote">Enterprise client work — private repo, details on request.</span>
       </article>
       <article class="pc">
         <div class="pm"><span class="pt">Learning · Foundations</span><span class="pn">PROJECT_05</span></div>
@@ -488,7 +950,7 @@ footer a{color:var(--orange);text-decoration:none}
         </div>
         <div class="pimpacts"><span class="pichip">⚡ 87% MTTR reduction</span><span class="pichip">Full DR replay</span><span class="pichip">FMEA enabled</span></div>
         <div class="pstack"><span class="tag">AWS Lambda</span><span class="tag">Step Functions</span><span class="tag">DynamoDB</span><span class="tag">Splunk</span><span class="tag">TypeScript</span></div>
-        <span class="pnote">Built for a JPMC engagement — private repo, details on request.</span>
+        <span class="pnote">Enterprise client work — private repo, details on request.</span>
       </article>
     </div>
   </div>
@@ -499,33 +961,48 @@ footer a{color:var(--orange);text-decoration:none}
     <div class="sh fade"><span class="sn">04.</span><h2 class="st">Experience</h2><div class="sl"></div></div>
     <div class="tl">
       <div class="ti"><div class="tdot cur" aria-hidden="true"></div>
-        <div class="etop"><div><div class="erole">Infra Technology Specialist</div><div class="ecrow"><span class="eco">Cognizant — CIS Practice</span><span class="ecli">Client: JPMorgan Chase</span></div></div><div class="eperiod">Jan 2022 — Present · 4+ yrs</div></div>
+        <div class="etop"><div><div class="erole">SRE Lead — Platform / DevOps</div><div class="ecrow"><span class="eco">Cognizant Technology Solutions</span><span class="ecli">JPMC CCB</span></div></div><div class="eperiod">Sep 2024 — Present</div></div>
         <ul class="eachieve">
-          <li>Architected ECS auto-scaling for <strong>JPMC peak transaction loads</strong> — zero downtime across 18 months</li>
-          <li>Led Blue/Green migration via Spinnaker — <strong>rollback time cut 70%</strong>, deployment risk eliminated</li>
-          <li>Built Dynatrace alerting framework — <strong>MTTR: 4 hrs → 45 min</strong> across 12 microservices</li>
-          <li>Authored Splunk SPL dashboards for real-time transaction observability</li>
-          <li>Drove Cypress E2E coverage <strong>0 → 77.6%</strong>; integrated as CI gate, blocking 23 prod incidents</li>
-          <li>Conducted FMEA game days — identified <strong>3 critical failure modes</strong> before production</li>
+          <li>Designed and operated a multi-region <strong>Amazon ECS Fargate platform</strong> for mission-critical banking applications.</li>
+          <li>Implemented Route 53 health-check failover, reducing recovery time from <strong>45 minutes to under 60 seconds</strong>.</li>
+          <li>Provisioned infrastructure across <strong>3 AWS accounts</strong> using Terraform Enterprise and Environment-as-Code, reducing delivery from 3–5 days to under 30 minutes.</li>
+          <li>Built Jenkins and Spinnaker pipelines for <strong>15+ services</strong> with approvals, validation, and rollback controls.</li>
+          <li>Integrated Dynatrace and Splunk across 30+ endpoints, reducing MTTD from <strong>45 minutes to under 2 minutes</strong>.</li>
         </ul>
-        <div class="etags"><span class="tag">AWS ECS/EKS</span><span class="tag">Terraform</span><span class="tag">Spinnaker</span><span class="tag">Dynatrace</span><span class="tag">Splunk</span><span class="tag">TypeScript</span><span class="tag">Cypress</span></div>
+        <div class="etags"><span class="tag">AWS ECS</span><span class="tag">Terraform Enterprise</span><span class="tag">Spinnaker</span><span class="tag">Jenkins</span><span class="tag">Dynatrace</span><span class="tag">Splunk</span></div>
       </div>
       <div class="ti"><div class="tdot" aria-hidden="true"></div>
-        <div class="etop"><div><div class="erole">Cloud & DevOps Engineer</div><div class="ecrow"><span class="eco">Infosys</span></div></div><div class="eperiod">2019 — 2022 · 3 yrs</div></div>
+        <div class="etop"><div><div class="erole">Consultant — DevOps / AI-ML</div><div class="ecrow"><span class="eco">Infosys</span></div></div><div class="eperiod">Apr 2024 — Aug 2024</div></div>
         <ul class="eachieve">
-          <li>Managed AWS infrastructure across <strong>4 production environments</strong> with Terraform</li>
-          <li>Built CI/CD pipelines — release cycles from <strong>2 weeks → 2 days</strong></li>
-          <li>Containerised monolith into <strong>8 microservices</strong> on Kubernetes, enabling independent scaling</li>
+          <li>Led an <strong>AI-powered document classification service</strong> using Amazon Bedrock and Claude.</li>
+          <li>Built TypeScript Lambda integrations with retry logic, dead-letter queues, and structured CloudWatch logging.</li>
         </ul>
-        <div class="etags"><span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span><span class="tag">Terraform</span></div>
+        <div class="etags"><span class="tag">Amazon Bedrock</span><span class="tag">Claude</span><span class="tag">TypeScript</span><span class="tag">Lambda</span><span class="tag">CloudWatch</span></div>
       </div>
       <div class="ti"><div class="tdot" aria-hidden="true"></div>
-        <div class="etop"><div><div class="erole">Software Developer — Java Backend</div><div class="ecrow"><span class="eco">Tata Consultancy Services (TCS)</span></div></div><div class="eperiod">2017 — 2019 · 2 yrs</div></div>
+        <div class="etop"><div><div class="erole">AWS DevOps Engineer / Cloud Developer</div><div class="ecrow"><span class="eco">Tata Consultancy Services</span></div></div><div class="eperiod">Apr 2022 — Mar 2024</div></div>
         <ul class="eachieve">
-          <li>Built REST APIs for enterprise banking system serving <strong>500K+ daily users</strong></li>
-          <li>Led microservices migration planning — reduced monolith coupling by <strong>40%</strong></li>
+          <li>Provisioned production EKS clusters with ALB ingress, managed node groups, IRSA, and Container Insights.</li>
+          <li>Orchestrated serverless workflows using Step Functions, Lambda, Glue, S3, SQS, and SES.</li>
+          <li>Reduced AWS Glue ETL costs by approximately <strong>30%</strong> through event-driven orchestration.</li>
         </ul>
-        <div class="etags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">REST APIs</span><span class="tag">SQL</span></div>
+        <div class="etags"><span class="tag">EKS</span><span class="tag">CloudFormation</span><span class="tag">Step Functions</span><span class="tag">Lambda</span><span class="tag">SQS</span></div>
+      </div>
+      <div class="ti"><div class="tdot" aria-hidden="true"></div>
+        <div class="etop"><div><div class="erole">Cloud Engineer / Cloud Administrator</div><div class="ecrow"><span class="eco">HCL Technologies</span></div></div><div class="eperiod">Aug 2019 — Apr 2022</div></div>
+        <ul class="eachieve">
+          <li>Migrated production workloads from on-premises infrastructure to AWS using Application Migration Service.</li>
+          <li>Designed secure VPC architectures and implemented IAM, CloudTrail, AWS Config, KMS, backup, and lifecycle controls.</li>
+        </ul>
+        <div class="etags"><span class="tag">AWS MGN</span><span class="tag">VPC</span><span class="tag">IAM</span><span class="tag">CloudTrail</span><span class="tag">AWS Config</span></div>
+      </div>
+      <div class="ti"><div class="tdot" aria-hidden="true"></div>
+        <div class="etop"><div><div class="erole">Analyst</div><div class="ecrow"><span class="eco">Maintec Technologies</span></div></div><div class="eperiod">Sep 2018 — Aug 2019</div></div>
+        <ul class="eachieve">
+          <li>Administered Splunk forwarders and index configurations for centralized logging.</li>
+          <li>Automated Windows patch management and internal workflows using PowerShell.</li>
+        </ul>
+        <div class="etags"><span class="tag">Splunk</span><span class="tag">PowerShell</span><span class="tag">Windows</span><span class="tag">Active Directory</span></div>
       </div>
     </div>
   </div>
@@ -537,12 +1014,14 @@ footer a{color:var(--orange);text-decoration:none}
     <div class="contact-wrap fade">
       <div>
         <h3 class="chl">Open to <span class="acc">the right</span><br/>opportunity.</h3>
-        <p class="csub">Targeting <strong style="color:var(--text)">MLOps, Platform Engineering,</strong> and <strong style="color:var(--text)">Senior GenAI/ML</strong> roles at product-first companies and GCCs. Based in Pune — open to hybrid & remote. Band: <strong style="color:var(--orange)">₹35–50 LPA.</strong></p>
+        <p class="csub">I am open to senior roles where I can own platform reliability, cloud architecture,
+        Kubernetes, infrastructure automation, and production AI systems. Based in Pune and open to strong
+        product engineering teams, GCCs, and platform organizations.</p>
         <div class="clinks" role="list">
-          <a href="mailto:jwala.chaubey@email.com" class="cl" id="ce"><span class="cli" aria-hidden="true">✉</span>jwala.chaubey@email.com<span class="cll">Email</span></a>
-          <a href="https://linkedin.com/in/jwala-chaubey" target="_blank" rel="noopener noreferrer" class="cl" id="c-li"><span class="cli" aria-hidden="true">in</span>linkedin.com/in/jwala-chaubey<span class="cll">LinkedIn</span></a>
+          <a href="mailto:jwalachaubey@gmail.com" class="cl" id="ce"><span class="cli" aria-hidden="true">✉</span>jwalachaubey@gmail.com<span class="cll">Email</span></a>
+          <a href="https://www.linkedin.com/in/jwala-chaubey/" target="_blank" rel="noopener noreferrer" class="cl" id="c-li"><span class="cli" aria-hidden="true">in</span>linkedin.com/in/jwala-chaubey<span class="cll">LinkedIn</span></a>
           <a href="https://github.com/theycallmejc" target="_blank" rel="noopener noreferrer" class="cl" id="cgh"><span class="cli" aria-hidden="true">⌥</span>github.com/theycallmejc<span class="cll">GitHub</span></a>
-          <a href="https://dev.to/viansh" target="_blank" rel="noopener noreferrer" class="cl" id="cb"><span class="cli" aria-hidden="true">✍</span>dev.to · hashnode @viansh<span class="cll">Blog</span></a>
+          
         </div>
       </div>
       <form class="cform" id="cf" aria-label="Send a message">
@@ -551,7 +1030,7 @@ footer a{color:var(--orange);text-decoration:none}
           <div class="fg"><label class="fl" for="fco">// Company</label><input id="fco" name="company" type="text" class="fi" placeholder="Company" autocomplete="organization"/></div>
         </div>
         <div class="fg"><label class="fl" for="fe">// Email</label><input id="fe" name="email" type="email" class="fi" placeholder="your@email.com" autocomplete="email" required/></div>
-        <div class="fg"><label class="fl" for="fr">// Role</label><input id="fr" name="role" type="text" class="fi" placeholder="e.g. Senior MLOps Engineer — ₹45L"/></div>
+        <div class="fg"><label class="fl" for="fr">// Role</label><input id="fr" name="role" type="text" class="fi" placeholder="e.g. Senior Platform Engineer"/></div>
         <div class="fg"><label class="fl" for="fm">// Message</label><textarea id="fm" name="message" class="ft" placeholder="Tell me about the role and what you're building..." required></textarea></div>
         <button type="submit" class="fsub" id="cs">Send Message ▶</button>
         <p class="fmsg" id="cfmsg" role="status" aria-live="polite"></p>
@@ -562,7 +1041,7 @@ footer a{color:var(--orange);text-decoration:none}
 </main>
 <footer role="contentinfo">
   <span>© 2026 <a href="https://theycallmejc.github.io">Jwala Chaubey</a> · Pune, India</span>
-  <span style="color:var(--orange);font-size:10px;font-family:var(--mono)">{ built:'scratch', no_framework:true }</span>
+  <span style="color:var(--orange);font-size:10px;font-family:var(--mono)"></span>
   <span><a href="https://github.com/theycallmejc" target="_blank" rel="noopener noreferrer">theycallmejc</a></span>
 </footer>
 <script>
@@ -603,7 +1082,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 (function(){
   const el=document.getElementById('typed');
   if(!el)return;
-  const roles=['AWS · Terraform · ECS/EKS','MLOps · Bedrock · RAG','Platform Engineering','Building KubeSage AI','GenAI Infra @ ₹40–50L'];
+  const roles=['AI Infrastructure · Agentic Systems','AWS · Terraform · Kubernetes','Platform Engineering · SRE','Building KubeSage AI','Reliable automation with guardrails'];
   let i=0,ci=0,del=false;
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduced){el.textContent=roles[0];return}
@@ -690,14 +1169,14 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
           'Role: '+(data.get('role')||'')+'\n\n'+
           (data.get('message')||'')
         );
-        window.location.href='mailto:jwala.chaubey@email.com?subject='+subject+'&body='+body;
+        window.location.href='mailto:jwalachaubey@gmail.com?subject='+subject+'&body='+body;
         btn.textContent='Opening email ▶';
         msg.textContent='Opening your email client to send this — no backend is wired up yet.';
         msg.classList.add('ok');
       }
     }catch(err){
       btn.textContent='Send Message ▶';
-      msg.textContent='Something went wrong — please email jwala.chaubey@email.com directly.';
+      msg.textContent='Something went wrong — please email jwalachaubey@gmail.com directly.';
       msg.classList.add('err');
     }finally{
       btn.disabled=false;
