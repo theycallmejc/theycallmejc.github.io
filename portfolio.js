@@ -104,7 +104,9 @@
     heroTitle.before(heroRole);
     $('.hero .eyebrow').innerHTML = '●&nbsp; <strong>Jwala Chaubey</strong> &nbsp;|&nbsp; ◉&nbsp; Pune, India';
     $('.hero .thesis').textContent = 'AWS, Kubernetes, Terraform, observability, and AI-assisted operations—built around fast signal and controlled recovery.';
-    if (launcher) { launcher.textContent = 'Ask Portfolio AI'; $('.nav-cta')?.before(launcher); }
+    if (launcher) launcher.innerHTML = '<span aria-hidden="true">✦</span><span>Ask Portfolio AI</span>';
+    const nav = $('header nav');
+    if (nav && !$('.nav-command')) { const command = document.createElement('button'); command.className = 'nav-command'; command.type = 'button'; command.setAttribute('aria-label', 'Open command palette'); command.textContent = '⌘ K'; command.addEventListener('click', () => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))); $('.nav-cta')?.before(command); }
     const statusPanel = document.createElement('section'); statusPanel.className = 'system-status'; statusPanel.setAttribute('aria-label', 'Portfolio system status');
     statusPanel.innerHTML = `<div><span>System status</span><b id="system-state">● Healthy</b></div><ul><li><span>◎&nbsp; Region</span><b>Active</b></li><li><span>◇&nbsp; Delivery</span><b id="delivery-state">Healthy</b></li><li><span>⌁&nbsp; Observability</span><b id="observability-state">Ready</b></li><li><span>◉&nbsp; AI context</span><b>Local index</b></li></ul><p id="system-announcement" role="status" aria-live="polite">Interactive portfolio demonstration ready.</p>`;
     heroNote.prepend(statusPanel);
