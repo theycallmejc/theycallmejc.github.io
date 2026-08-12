@@ -62,7 +62,12 @@
     $('#ai-clear-context').addEventListener('click', () => setContext());
     $('#ai-form').addEventListener('submit', event => { event.preventDefault(); ask(input.value); });
     $('#ai-suggestions').addEventListener('click', event => { const button = event.target.closest('[data-question]'); if (button) ask(button.dataset.question); });
-    $$('[data-question][data-context]').forEach(button => button.addEventListener('click', () => openAI(button.dataset.question, button.dataset.context)));
+    document.addEventListener('click', event => {
+      const button = event.target.closest('button[data-question]');
+      if (!button || button.closest('.ai-drawer')) return;
+      event.preventDefault(); event.stopPropagation();
+      openAI(button.dataset.question, button.dataset.context || 'Relevant portfolio evidence');
+    }, true);
     document.addEventListener('keydown', event => { if (!document.body.classList.contains('ai-open')) return; if (event.key === 'Escape') { event.preventDefault(); closeAI(); } if (event.key === 'Tab') { const items = focusables(drawer); const first = items[0], last = items.at(-1); if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); } } });
   }
   function initArchitecture() { const nodes = $$('.arch-node'), arrows = $$('.arch-arrow'), help = $('#arch-help'); let active = 0; const show = index => { nodes.forEach((node, i) => node.classList.toggle('flow-active', i === index)); arrows.forEach((arrow, i) => arrow.classList.toggle('flow-active', i === index)); help.textContent = nodes[index].dataset.purpose; }; nodes.forEach((node, index) => ['focus', 'mouseenter'].forEach(event => node.addEventListener(event, () => show(index)))); show(0); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => show(active = (active + 1) % nodes.length), 2800); }
