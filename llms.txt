@@ -1,0 +1,3 @@
+# Jwala Chaubey portfolio
+
+Jwala Chaubey is a Senior Platform / SRE Engineer based in Pune, India. The portfolio presents verified work in AWS platform engineering, Terraform, Kubernetes, delivery automation, observability, and applied AI systems. Quantified outcomes and project details are available in the site and machine-readable JSON files. Simulations on the site are deterministic demonstrations and are not confidential production incident records.

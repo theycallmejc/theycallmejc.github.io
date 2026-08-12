@@ -1,0 +1,6 @@
+{
+  "platform": ["AWS", "ECS", "EKS", "Route 53", "Terraform Enterprise", "VPC", "ALB", "NLB"],
+  "reliability": ["Dynatrace", "Splunk", "CloudWatch", "failover", "incident response"],
+  "delivery": ["Jenkins", "Spinnaker", "GitHub Actions", "approvals", "rollback controls"],
+  "ai": ["Python", "FastAPI", "RAG", "Amazon Bedrock", "Claude", "ChromaDB"]
+}
