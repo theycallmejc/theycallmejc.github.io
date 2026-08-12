@@ -99,16 +99,19 @@
     const hero = $('.hero'); const heroActions = $('.hero .actions'); const heroNote = $('.hero-note');
     if (!hero || !heroActions || !heroNote) return;
     const heroTitle = $('#hero-title'); const heroRole = $('.hero .role'); const launcher = $('.ai-launcher');
-    heroTitle.innerHTML = 'I engineer cloud platforms<span>that recover.</span>';
+    heroTitle.innerHTML = 'I engineer cloud<br>platforms<span>that recover.</span>';
     heroRole.textContent = 'Senior Platform / SRE Engineer';
     heroTitle.before(heroRole);
+    $('.hero .eyebrow').innerHTML = '●&nbsp; <strong>Jwala Chaubey</strong> &nbsp;|&nbsp; ◉&nbsp; Pune, India';
     $('.hero .thesis').textContent = 'AWS, Kubernetes, Terraform, observability, and AI-assisted operations—built around fast signal and controlled recovery.';
     if (launcher) { launcher.textContent = 'Ask Portfolio AI'; $('.nav-cta')?.before(launcher); }
     const statusPanel = document.createElement('section'); statusPanel.className = 'system-status'; statusPanel.setAttribute('aria-label', 'Portfolio system status');
-    statusPanel.innerHTML = `<div><span>System status</span><b id="system-state">● Healthy</b></div><ul><li><span>Region</span><b>Active</b></li><li><span>Delivery</span><b id="delivery-state">Healthy</b></li><li><span>Observability</span><b id="observability-state">Ready</b></li><li><span>AI context</span><b>Local index</b></li></ul><p id="system-announcement" role="status" aria-live="polite">Interactive portfolio demonstration ready.</p>`;
+    statusPanel.innerHTML = `<div><span>System status</span><b id="system-state">● Healthy</b></div><ul><li><span>◎&nbsp; Region</span><b>Active</b></li><li><span>◇&nbsp; Delivery</span><b id="delivery-state">Healthy</b></li><li><span>⌁&nbsp; Observability</span><b id="observability-state">Ready</b></li><li><span>◉&nbsp; AI context</span><b>Local index</b></li></ul><p id="system-announcement" role="status" aria-live="polite">Interactive portfolio demonstration ready.</p>`;
     heroNote.prepend(statusPanel);
     const incidentButton = document.createElement('button'); incidentButton.className = 'button primary system-action'; incidentButton.type = 'button'; incidentButton.textContent = 'Simulate incident';
-    heroActions.append(incidentButton);
+    const linkedin = heroActions.querySelector('a[href*="linkedin"]'); if (linkedin) linkedin.remove();
+    const askButton = document.createElement('button'); askButton.className = 'button ai-hero-action'; askButton.type = 'button'; askButton.textContent = 'Ask Portfolio AI ✦'; askButton.addEventListener('click', () => openAI('', 'Hero overview'));
+    heroActions.append(askButton);
     const demo = document.createElement('section'); demo.className = 'system-demo'; demo.id = 'system-demo'; demo.setAttribute('aria-labelledby', 'system-demo-title');
     demo.innerHTML = `<div class="shell"><div class="demo-heading"><span class="kicker">Live engineering system / portfolio demonstration</span><h2 id="system-demo-title">Signals become recovery.</h2><p>These reversible visualizations explain verified portfolio outcomes; no production telemetry is represented.</p></div><div class="demo-grid"><article class="incident-demo"><div class="demo-label"><span>Route 53 health signal</span><b id="incident-badge">Healthy</b></div><ol id="incident-timeline"><li>System healthy — primary environment is serving traffic.</li></ol><div class="demo-outcome"><strong id="incident-outcome">45 min → &lt;60 sec recovery</strong><span id="incident-caption">Verified failover outcome represented as an interactive visualization.</span></div><div class="actions"><button class="button primary" type="button" id="incident-run">Simulate incident</button><button class="button" type="button" id="incident-reset" disabled>Reset system</button></div></article><article class="provision-demo"><div class="demo-label"><span>Terraform Enterprise / multi-account platform</span><b id="provision-badge">Ready</b></div><div class="provision-nodes" id="provision-nodes">${['Terraform Enterprise','VPC','IAM','ALB / NLB','ECS','Route 53','Observability'].map(node => `<span>${node}<b>Ready</b></span>`).join('')}</div><div class="demo-outcome"><strong id="provision-outcome">3–5 days → &lt;30 min</strong><span>Verified infrastructure delivery outcome.</span></div><div class="actions"><button class="button" type="button" id="provision-run">Provision platform</button><button class="button" type="button" id="provision-reset" disabled>Reset</button></div></article></div></div>`;
     hero.after(demo);
