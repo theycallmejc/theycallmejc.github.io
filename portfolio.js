@@ -101,6 +101,8 @@
     const heroTitle = $('#hero-title'); const heroRole = $('.hero .role'); const launcher = $('.ai-launcher');
     heroTitle.innerHTML = 'I engineer cloud platforms<span>that recover.</span>';
     heroRole.textContent = 'Senior Platform / SRE Engineer';
+    heroTitle.before(heroRole);
+    $('.hero .thesis').textContent = 'AWS, Kubernetes, Terraform, observability, and AI-assisted operations—built around fast signal and controlled recovery.';
     if (launcher) launcher.innerHTML = '<span class="ai-launcher-status">AI context · ready</span><span class="ai-launcher-title">Portfolio Intelligence</span>';
     const statusPanel = document.createElement('section'); statusPanel.className = 'system-status'; statusPanel.setAttribute('aria-label', 'Portfolio system status');
     statusPanel.innerHTML = `<div><span>System status</span><b id="system-state">● Healthy</b></div><ul><li><span>Region</span><b>Active</b></li><li><span>Delivery</span><b id="delivery-state">Healthy</b></li><li><span>Observability</span><b id="observability-state">Ready</b></li><li><span>AI context</span><b>Local index</b></li></ul><p id="system-announcement" role="status" aria-live="polite">Interactive portfolio demonstration ready.</p>`;
