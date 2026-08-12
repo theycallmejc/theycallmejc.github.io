@@ -98,6 +98,10 @@
   function initLiveSystem() {
     const hero = $('.hero'); const heroActions = $('.hero .actions'); const heroNote = $('.hero-note');
     if (!hero || !heroActions || !heroNote) return;
+    const heroTitle = $('#hero-title'); const heroRole = $('.hero .role'); const launcher = $('.ai-launcher');
+    heroTitle.innerHTML = 'I engineer cloud platforms<span>that recover.</span>';
+    heroRole.textContent = 'Senior Platform / SRE Engineer';
+    if (launcher) launcher.innerHTML = '<span>AI context · ready</span>Portfolio Intelligence';
     const statusPanel = document.createElement('section'); statusPanel.className = 'system-status'; statusPanel.setAttribute('aria-label', 'Portfolio system status');
     statusPanel.innerHTML = `<div><span>System status</span><b id="system-state">● Healthy</b></div><ul><li><span>Region</span><b>Active</b></li><li><span>Delivery</span><b id="delivery-state">Healthy</b></li><li><span>Observability</span><b id="observability-state">Ready</b></li><li><span>AI context</span><b>Local index</b></li></ul><p id="system-announcement" role="status" aria-live="polite">Interactive portfolio demonstration ready.</p>`;
     heroNote.prepend(statusPanel);
