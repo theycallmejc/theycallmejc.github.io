@@ -40,3 +40,43 @@ header nav{height:64px}.hero{padding:3.5rem 0 2.8rem;min-height:0}.hero-grid{gri
 .ai-context{align-items:center;flex-wrap:wrap;gap:.45rem .8rem}
 .ai-context span{margin-right:auto}
 .ai-context button:hover{text-decoration:underline}
+
+/* Visual refinement pass: measured depth, clearer hierarchy, and tactile controls. */
+body{background:linear-gradient(180deg,#fbfcff 0,#f8fafc 34rem,#fff 34rem);}
+header{backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(15,23,42,.02)}
+.nav-links a{position:relative;transition:color .2s var(--ease)}
+.nav-links a:after{content:"";position:absolute;left:0;right:0;bottom:-.5rem;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .2s var(--ease)}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--accent)}
+.nav-links a:hover:after,.nav-links a:focus-visible:after{transform:scaleX(1)}
+.hero{isolation:isolate}
+.hero:after{content:"";position:absolute;z-index:-1;right:4%;top:2.2rem;width:min(38vw,34rem);aspect-ratio:1;background:radial-gradient(circle,rgba(21,94,239,.09),transparent 67%);filter:blur(8px);pointer-events:none}
+.hero h1 span{background:linear-gradient(100deg,#155eef 0%,#3379ee 48%,#0b8f55 135%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.signal span{transition:transform .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease)}
+.signal span:hover{transform:translateY(-2px);border-color:#9db8ef;box-shadow:0 7px 16px rgba(21,94,239,.09)}
+.button{border-radius:6px;font-weight:700;box-shadow:0 1px 1px rgba(15,23,42,.02)}
+.button.primary{box-shadow:0 8px 18px rgba(21,94,239,.18)}
+.proof-item{transition:background .2s var(--ease),transform .2s var(--ease)}
+.proof-item:hover{background:rgba(237,244,255,.55);transform:translateY(-2px)}
+.role-feature{position:relative;transition:padding-left .25s var(--ease),background .25s var(--ease)}
+.role-feature:before{content:"";position:absolute;left:-1px;top:2rem;bottom:2.4rem;width:3px;border-radius:3px;background:var(--accent);transform:scaleY(0);transform-origin:center;transition:transform .25s var(--ease)}
+.role-feature:hover{padding-left:1.2rem;background:linear-gradient(90deg,rgba(237,244,255,.72),transparent 55%)}
+.role-feature:hover:before{transform:scaleY(1)}
+.impact{transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.impact:hover{position:relative;z-index:1;transform:translateY(-4px);box-shadow:0 12px 28px rgba(15,23,42,.1)}
+.dark{background:radial-gradient(circle at 83% 13%,#1f3b69 0,transparent 24rem),#0f1724}
+.project{position:relative;overflow:hidden;transition:transform .24s var(--ease),background .24s var(--ease),box-shadow .24s var(--ease)}
+.project:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(134,170,255,.1),transparent 38%);opacity:0;transition:opacity .24s var(--ease);pointer-events:none}
+.project:hover{z-index:2;transform:translateY(-6px);background:#1d2a3d;box-shadow:0 20px 35px rgba(0,0,0,.2)}
+.project:hover:before{opacity:1}
+.project-link{position:relative;width:max-content;max-width:100%;transition:color .2s var(--ease)}
+.project-link:after{content:"";position:absolute;left:0;bottom:-.3rem;width:100%;height:1px;background:currentColor;transform:scaleX(.35);transform-origin:left;transition:transform .2s var(--ease)}
+.project:hover .project-link:after{transform:scaleX(1)}
+.capability{transition:transform .2s var(--ease),border-color .2s var(--ease),box-shadow .2s var(--ease)}
+.capability:hover{transform:translateY(-4px);border-color:#b8cdf9;box-shadow:0 14px 26px rgba(15,23,42,.08)}
+.systems-lab{background:linear-gradient(180deg,#fff,#f7faff)}
+.contact{position:relative;overflow:hidden;background:linear-gradient(115deg,#f4f8ff,#fff 62%)}
+.contact:after{content:"";position:absolute;right:-8rem;bottom:-12rem;width:28rem;height:28rem;border:1px solid rgba(21,94,239,.12);border-radius:50%;box-shadow:0 0 0 3rem rgba(21,94,239,.025),0 0 0 6rem rgba(21,94,239,.02);pointer-events:none}
+.contact-grid{position:relative;z-index:1}
+:focus-visible{outline:3px solid rgba(21,94,239,.32);outline-offset:3px}
+@media(max-width:680px){.role-feature:hover{padding-left:.7rem}.hero:after{width:20rem;right:-9rem;top:-2rem}.proof-item:hover,.project:hover,.capability:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.nav-links a:after,.signal span,.proof-item,.role-feature,.role-feature:before,.impact,.project,.project:before,.project-link:after,.capability{transition:none}.proof-item:hover,.project:hover,.capability:hover,.signal span:hover,.impact:hover{transform:none}}
