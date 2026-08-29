@@ -80,3 +80,65 @@ header{backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(15,23,42,.02)}
 :focus-visible{outline:3px solid rgba(21,94,239,.32);outline-offset:3px}
 @media(max-width:680px){.role-feature:hover{padding-left:.7rem}.hero:after{width:20rem;right:-9rem;top:-2rem}.proof-item:hover,.project:hover,.capability:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){.nav-links a:after,.signal span,.proof-item,.role-feature,.role-feature:before,.impact,.project,.project:before,.project-link:after,.capability{transition:none}.proof-item:hover,.project:hover,.capability:hover,.signal span:hover,.impact:hover{transform:none}}
+
+/* Competition presentation: remove dashboard noise and let the proof do the work. */
+:root{--competition-ink:#101828;--competition-blue:#2e63d5;--competition-sky:#eaf1ff;--competition-line:#d8e1ef}
+body{background:#f7f9fc;color:var(--competition-ink)}
+header{background:rgba(247,249,252,.86);border-color:rgba(216,225,239,.85)}
+header nav{height:72px}
+.brand{letter-spacing:-.09em;color:var(--competition-ink)}
+.nav-links a{font:600 .69rem var(--mono);letter-spacing:.02em;color:#65738a}
+.nav-state{border:1px solid var(--competition-line);border-radius:99px;padding:.42rem .7rem;color:#506076;background:#fff}
+.nav-cta{border-radius:99px;background:var(--competition-ink);border-color:var(--competition-ink);box-shadow:none}
+.nav-cta:hover{background:var(--competition-blue);border-color:var(--competition-blue)}
+.hero{padding:5.8rem 0 3.2rem!important;background:linear-gradient(120deg,#f7f9fc 0%,#f7f9fc 54%,#edf3ff 100%)}
+.hero:before{display:none}
+.hero:after{right:10%;top:5rem;width:32rem;background:radial-gradient(circle,rgba(68,125,234,.16),transparent 66%)}
+.hero-grid{grid-template-columns:minmax(0,1.25fr) minmax(330px,.65fr)!important;gap:5.5rem!important}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:.45rem;padding:.48rem .72rem;border:1px solid #cfe0ff;border-radius:99px;background:rgba(255,255,255,.72);color:var(--competition-blue)!important;font:600 .66rem var(--mono)!important;letter-spacing:.03em!important}
+.hero h1{max-width:760px!important;margin:1.45rem 0 1.35rem!important;font-size:clamp(4rem,6.3vw,7rem)!important;line-height:.88!important;letter-spacing:-.09em!important}
+.hero .role{margin:0 0 1rem!important;color:#546276!important;font:600 .72rem var(--mono)!important;letter-spacing:.04em!important;text-transform:uppercase!important}
+.hero .thesis{max-width:620px!important;color:#46556b!important;font-size:1.08rem!important;line-height:1.75!important}
+.signal span{border-radius:99px;background:rgba(255,255,255,.82);color:#3e4d61}
+.hero .actions .button{min-height:50px!important;border-radius:8px}
+.hero-note{align-self:center;border:0!important;padding:0!important}
+.system-status,.system-demo{display:none!important}
+.hero-note>small{color:var(--competition-blue)!important;font:700 .66rem var(--mono)!important;letter-spacing:.11em}
+.hero-note>p{margin:.7rem 0 1.5rem!important;color:#35445a!important;font-size:1rem!important;line-height:1.7!important}
+.intelligence-card{position:relative;overflow:hidden;border:1px solid #cbdaf2!important;border-radius:14px!important;background:linear-gradient(140deg,#fff,#edf4ff)!important;padding:1.45rem!important;box-shadow:0 20px 45px rgba(49,85,143,.12)!important}
+.intelligence-card:before{content:"";position:absolute;right:-2.2rem;top:-2.2rem;width:8rem;height:8rem;border:1px solid #bdd1f8;border-radius:50%;box-shadow:0 0 0 1.1rem rgba(189,209,248,.24)}
+.intelligence-card strong,.intelligence-card p,.intelligence-card button{position:relative;z-index:1}
+.intelligence-card button{margin-top:.2rem;padding:.55rem .75rem!important;border:1px solid #b7c9e9!important;border-radius:6px!important;background:#fff!important}
+.proof{gap:.75rem;margin-top:4.5rem!important;border:0!important}
+.proof-item{border:1px solid var(--competition-line)!important;border-radius:12px;background:#fff;padding:1.1rem!important;box-shadow:0 8px 25px rgba(15,23,42,.04)}
+.proof-item:not(:last-child):after{display:none!important}
+.section{padding:7rem 0!important}
+.section-header{margin-bottom:3rem!important}
+.section-header h2{font-size:clamp(2.3rem,4vw,4rem)!important;letter-spacing:-.085em!important}
+.role-feature{border:1px solid var(--competition-line)!important;border-radius:16px;padding:2.2rem!important;background:#fff;box-shadow:0 12px 30px rgba(15,23,42,.035)}
+.role-feature:hover{padding:2.2rem!important;background:#fff}
+.role-feature:before{left:0;top:1.5rem;bottom:1.5rem}
+.impact-grid{border-radius:10px;overflow:hidden}
+.secondary-roles{border-top:0!important;margin-top:1rem!important}
+.secondary-role{border:1px solid var(--competition-line);border-radius:10px;margin-top:.75rem;padding:1.15rem 1.3rem!important;background:rgba(255,255,255,.6)}
+.dark{background:#111b2b!important}
+.dark .section-header h2{color:#f8fbff}
+.flagship{border-top:1px solid #3b4b65!important;padding-top:2.7rem!important}
+.flagship h3,.project h3{font-size:clamp(1.4rem,2vw,2rem)!important}
+.project-grid{gap:1px;border:1px solid #3b4b65;background:#3b4b65;border-radius:15px;overflow:hidden}
+.project{background:#152236!important;padding:1.7rem!important}
+.project:hover{background:#192942!important;transform:translateY(-4px)}
+.case-lens{border-radius:10px;overflow:hidden}
+.systems-lab{background:#f4f7fc!important}
+.evidence-card,.architecture-explorer,.resilience-simulator,.incident-lab,.decisions{border-radius:14px!important}
+.capability-grid{gap:.75rem!important;border:0!important;background:transparent!important}
+.capability{border:1px solid var(--competition-line)!important;border-radius:12px;background:#fff;padding:1.35rem!important}
+.contact{background:#101828!important;color:#f8fbff}
+.contact h2,.contact p{color:inherit!important}
+.contact:after{border-color:rgba(126,164,241,.22)}
+.contact-link{border-color:#34435a!important;color:#f8fbff!important}
+.contact-link:hover{background:#18253a!important}
+footer{background:#101828!important;border-color:#28374e!important;color:#b7c5d9}
+footer a{color:#d5e3ff}
+@media(max-width:900px){.hero{padding-top:4.2rem!important}.hero-grid{grid-template-columns:1fr!important;gap:2.8rem!important}.proof{margin-top:3rem!important}.secondary-role{grid-template-columns:1fr!important;gap:.8rem!important}}
+@media(max-width:680px){header nav{height:64px}.hero{padding:3.5rem 0 2.6rem!important}.hero h1{font-size:clamp(3.45rem,17vw,5.2rem)!important}.proof{gap:.65rem}.role-feature{padding:1.35rem!important}.role-feature:hover{padding:1.35rem!important}.section{padding:4.6rem 0!important}.intelligence-card{padding:1.2rem!important}}
