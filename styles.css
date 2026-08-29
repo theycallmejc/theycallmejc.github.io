@@ -35,3 +35,8 @@ header nav{height:64px}.hero{padding:3.5rem 0 2.8rem;min-height:0}.hero-grid{gri
 /* AI entry-point contract: no decorative command shortcut inside Portfolio Intelligence. */
 .intelligence-card:after{content:none!important;display:none!important}
 .intelligence-card button{display:inline-flex;align-items:center;min-height:2rem}
+
+/* Keep local-chat controls compact without squeezing the current context on narrow screens. */
+.ai-context{align-items:center;flex-wrap:wrap;gap:.45rem .8rem}
+.ai-context span{margin-right:auto}
+.ai-context button:hover{text-decoration:underline}

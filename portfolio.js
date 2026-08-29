@@ -4,6 +4,7 @@
   const endpoint = window.PORTFOLIO_AI_ENDPOINT || '';
   const $ = selector => document.querySelector(selector);
   const $$ = selector => [...document.querySelectorAll(selector)];
+  const STORAGE_KEY = 'jc-portfolio-ai-history-v1';
   const state = { context: '', history: [], lastQuestion: '', lastAnswer: '', previousFocus: null };
   const drawer = $('.ai-drawer');
   const input = $('#ai-input');
@@ -33,7 +34,10 @@
   function setContext(context = '') { state.context = context; contextValue.textContent = context || 'All verified portfolio data'; }
   function openAI(question = '', context = '') { state.previousFocus = document.activeElement; setContext(context); document.body.classList.add('ai-open'); drawer.setAttribute('aria-hidden', 'false'); input.value = question; input.focus(); if (question) ask(question); }
   function closeAI() { document.body.classList.remove('ai-open'); drawer.setAttribute('aria-hidden', 'true'); state.previousFocus?.focus(); }
-  function addMessage(role, text, links = [], followups = []) {
+  function saveHistory() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.history.slice(-12))); } catch (_) { /* Storage may be disabled by the browser. */ }
+  }
+  function addMessage(role, text, links = [], followups = [], persist = true) {
     const message = document.createElement('article');
     message.className = `ai-message ${role}`;
     message.innerHTML = `<small>${role === 'user' ? 'You' : 'Portfolio Intelligence'}</small><p>${escapeHtml(text)}</p>${links.map(link => `<button class="ai-evidence" type="button" data-highlight="${link.highlight || ''}">${escapeHtml(link.label)} →</button>`).join(' ')}${followups.length ? `<div class="ai-followups">${followups.map(item => `<button class="ai-followup" type="button" data-question="${escapeHtml(item)}">${escapeHtml(item)}</button>`).join('')}</div>` : ''}`;
@@ -41,6 +45,22 @@
     message.querySelectorAll('[data-highlight]').forEach(button => button.addEventListener('click', () => go(button.dataset.highlight, true)));
     message.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => ask(button.dataset.question)));
     message.scrollIntoView({ block: 'end' });
+    if (persist) {
+      state.history.push({ role, text, links, followups });
+      state.history = state.history.slice(-12);
+      saveHistory();
+    }
+  }
+  function restoreHistory() {
+    try {
+      const entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      if (!Array.isArray(entries)) return;
+      entries.slice(-12).forEach(entry => {
+        if (!['user', 'assistant'].includes(entry.role) || typeof entry.text !== 'string') return;
+        addMessage(entry.role, entry.text, Array.isArray(entry.links) ? entry.links : [], Array.isArray(entry.followups) ? entry.followups : [], false);
+        state.history.push(entry);
+      });
+    } catch (_) { /* A malformed or unavailable stored value should not block the drawer. */ }
   }
   async function ask(question) {
     const clean = question.trim().slice(0, 240); if (!clean) return;
@@ -60,6 +80,11 @@
     $$('[data-ai-open]').forEach(button => button.addEventListener('click', () => openAI(button.dataset.question || '', button.dataset.context || '')));
     $$('[data-ai-close]').forEach(element => element.addEventListener('click', closeAI));
     $('#ai-clear-context').addEventListener('click', () => setContext());
+    $('#ai-clear-history').addEventListener('click', () => {
+      state.history = []; thread.replaceChildren();
+      try { localStorage.removeItem(STORAGE_KEY); } catch (_) { /* Storage may be disabled by the browser. */ }
+      status.textContent = 'Chat cleared. Grounded in verified career data.';
+    });
     $('#ai-form').addEventListener('submit', event => { event.preventDefault(); ask(input.value); });
     $('#ai-suggestions').addEventListener('click', event => { const button = event.target.closest('[data-question]'); if (button) ask(button.dataset.question); });
     document.addEventListener('click', event => {
@@ -69,6 +94,7 @@
       openAI(button.dataset.question, button.dataset.context || 'Relevant portfolio evidence');
     }, true);
     document.addEventListener('keydown', event => { if (!document.body.classList.contains('ai-open')) return; if (event.key === 'Escape') { event.preventDefault(); closeAI(); } if (event.key === 'Tab') { const items = focusables(drawer); const first = items[0], last = items.at(-1); if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); } } });
+    restoreHistory();
   }
   function initArchitecture() { const nodes = $$('.arch-node'), arrows = $$('.arch-arrow'), help = $('#arch-help'); let active = 0; const show = index => { nodes.forEach((node, i) => node.classList.toggle('flow-active', i === index)); arrows.forEach((arrow, i) => arrow.classList.toggle('flow-active', i === index)); help.textContent = nodes[index].dataset.purpose; }; nodes.forEach((node, index) => ['focus', 'mouseenter'].forEach(event => node.addEventListener(event, () => show(index)))); show(0); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => show(active = (active + 1) % nodes.length), 2800); }
   function initLenses() { const output = $('#lens-output'); const proof = $$('.proof-item'); proof.forEach((item, index) => item.dataset.metric = ['recovery','provisioning','detection','delivery'][index]); $$('[data-lens]').forEach(button => button.addEventListener('click', () => { const lens = data.aiContext.lenses[button.dataset.lens]; $$('[data-lens]').forEach(item => item.classList.toggle('active', item === button)); const emphasis = button.dataset.lens === 'SRE / Reliability' ? ['recovery','detection'] : button.dataset.lens === 'AWS Infrastructure' ? ['provisioning','delivery'] : []; proof.forEach(item => item.classList.toggle('lens-emphasis', emphasis.includes(item.dataset.metric))); data.projects.forEach(item => $('#' + item.id)?.classList.toggle('lens-emphasis', lens.projects.includes(item.id))); output.classList.add('visible'); output.innerHTML = `<strong>${button.dataset.lens} lens</strong><p>Relevant evidence: ${lens.projects.map(id => project(id)?.name).join(' · ')}</p><p>Relevant stack: ${lens.skills.flatMap(key => data.skills[key]).join(' · ')}</p><div class="actions">${lens.questions.map(question => `<button class="button" type="button" data-question="${escapeHtml(question)}">${escapeHtml(question)}</button>`).join('')}</div>`; output.querySelectorAll('[data-question]').forEach(item => item.addEventListener('click', () => openAI(item.dataset.question, button.dataset.lens))); })); }
