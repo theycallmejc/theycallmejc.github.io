@@ -142,3 +142,13 @@ footer{background:#101828!important;border-color:#28374e!important;color:#b7c5d9
 footer a{color:#d5e3ff}
 @media(max-width:900px){.hero{padding-top:4.2rem!important}.hero-grid{grid-template-columns:1fr!important;gap:2.8rem!important}.proof{margin-top:3rem!important}.secondary-role{grid-template-columns:1fr!important;gap:.8rem!important}}
 @media(max-width:680px){header nav{height:64px}.hero{padding:3.5rem 0 2.6rem!important}.hero h1{font-size:clamp(3.45rem,17vw,5.2rem)!important}.proof{gap:.65rem}.role-feature{padding:1.35rem!important}.role-feature:hover{padding:1.35rem!important}.section{padding:4.6rem 0!important}.intelligence-card{padding:1.2rem!important}}
+
+/* Final judge-facing refinements. */
+.section-intro{max-width:680px;margin:-1.5rem 0 2.5rem;color:#617086;font-size:1rem;line-height:1.7}
+.dark .section-intro{color:#b8c6dc}
+.flagship{margin-top:.25rem}
+.project-grid:before{content:"Supporting systems";grid-column:1/-1;padding:1rem 1.35rem;background:#101b2b;color:#9bb8ee;font:700 .63rem var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.project:nth-child(n+4){opacity:.88}
+.project:nth-child(n+4):hover{opacity:1}
+.ai-launcher{border-radius:99px!important;padding:.78rem 1.1rem!important}
+@media(max-width:680px){.nav-cta{display:inline-flex!important;margin-left:auto;padding:.52rem .7rem!important;border-radius:99px;font-size:.61rem}.section-intro{margin:-1.3rem 0 2rem;font-size:.92rem}.project-grid:before{padding:.85rem 1rem}.ai-launcher{padding:.7rem!important}}
