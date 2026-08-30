@@ -137,45 +137,28 @@
     $$('.incident-tabs button', section).forEach(button => button.addEventListener('click', () => { $$('.incident-tabs button', section).forEach(tab => tab.setAttribute('aria-selected', String(tab === button))); $('#incident-output').textContent = incident[button.dataset.incident]; }));
   }
   function initLiveSystem() {
-    const hero = $('.hero'); const heroActions = $('.hero .actions'); const heroNote = $('.hero-note');
-    if (!hero || !heroActions || !heroNote) return;
-    const heroTitle = $('#hero-title'); const heroRole = $('.hero .role'); const launcher = $('.ai-launcher');
-    heroTitle.innerHTML = 'I engineer cloud<br>platforms<span>that recover.</span>';
-    heroRole.textContent = 'Senior Platform / SRE Engineer';
-    heroTitle.before(heroRole);
-    $('.hero .eyebrow').innerHTML = '●&nbsp; <strong>Jwala Chaubey</strong> &nbsp;|&nbsp; ◉&nbsp; Pune, India';
-    $('.hero .thesis').textContent = 'AWS, Kubernetes, Terraform, observability, and AI-assisted operations—built around fast signal and controlled recovery.';
+    const launcher = $('.ai-launcher');
     if (launcher) {
       launcher.innerHTML = '<span aria-hidden="true">✦</span><span>Ask Portfolio AI</span>';
       launcher.setAttribute('aria-label', 'Open Portfolio AI');
+      launcher.classList.add('secondary-launcher');
     }
     const nav = $('header nav');
-    if (nav && !$('.nav-command')) { const command = document.createElement('button'); command.className = 'nav-command'; command.type = 'button'; command.setAttribute('aria-label', 'Open command palette'); command.textContent = '⌘ K'; command.addEventListener('click', () => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))); $('.nav-cta')?.before(command); }
-    const statusPanel = document.createElement('section'); statusPanel.className = 'system-status'; statusPanel.setAttribute('aria-label', 'Portfolio system status');
-    statusPanel.innerHTML = `<div><span>System status</span><b id="system-state">● Healthy</b></div><ul><li><span>◎&nbsp; Region</span><b>Active</b></li><li><span>◇&nbsp; Delivery</span><b id="delivery-state">Healthy</b></li><li><span>⌁&nbsp; Observability</span><b id="observability-state">Ready</b></li><li><span>◉&nbsp; AI context</span><b>Local index</b></li></ul><p id="system-announcement" role="status" aria-live="polite">Interactive portfolio demonstration ready.</p>`;
-    heroNote.prepend(statusPanel);
-    const incidentButton = document.createElement('button'); incidentButton.className = 'button primary system-action'; incidentButton.type = 'button'; incidentButton.textContent = 'Simulate incident';
-    const linkedin = heroActions.querySelector('a[href*="linkedin"]'); if (linkedin) linkedin.remove();
-    const askButton = document.createElement('button'); askButton.className = 'button ai-hero-action'; askButton.type = 'button'; askButton.textContent = 'Ask Portfolio AI ✦'; askButton.setAttribute('aria-label', 'Open Portfolio AI'); askButton.addEventListener('click', () => openAI());
-    heroActions.append(askButton);
+    if (nav && !$('.nav-command')) {
+      const command = document.createElement('button');
+      command.className = 'nav-command';
+      command.type = 'button';
+      command.setAttribute('aria-label', 'Open command palette');
+      command.textContent = '⌘ K';
+      command.addEventListener('click', () => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true })));
+      $('.nav-cta')?.before(command);
+    }
     const intelligenceAction = $('.intelligence-card [data-ai-open]');
     if (intelligenceAction) {
       intelligenceAction.textContent = 'Get recruiter summary →';
       intelligenceAction.dataset.context = 'Portfolio overview';
       intelligenceAction.dataset.question = 'What is the strongest evidence for this platform and SRE profile?';
     }
-    const demo = document.createElement('section'); demo.className = 'system-demo'; demo.id = 'system-demo'; demo.setAttribute('aria-labelledby', 'system-demo-title');
-    demo.innerHTML = `<div class="shell"><div class="demo-heading"><span class="kicker">Live engineering system / portfolio demonstration</span><h2 id="system-demo-title">Signals become recovery.</h2><p>These reversible visualizations explain verified portfolio outcomes; no production telemetry is represented.</p></div><div class="demo-grid"><article class="incident-demo"><div class="demo-label"><span>Route 53 health signal</span><b id="incident-badge">Healthy</b></div><ol id="incident-timeline"><li>System healthy — primary environment is serving traffic.</li></ol><div class="demo-outcome"><strong id="incident-outcome">45 min → &lt;60 sec recovery</strong><span id="incident-caption">Verified failover outcome represented as an interactive visualization.</span></div><div class="actions"><button class="button primary" type="button" id="incident-run">Simulate incident</button><button class="button" type="button" id="incident-reset" disabled>Reset system</button></div></article><article class="provision-demo"><div class="demo-label"><span>Terraform Enterprise / multi-account platform</span><b id="provision-badge">Ready</b></div><div class="provision-nodes" id="provision-nodes">${['Terraform Enterprise','VPC','IAM','ALB / NLB','ECS','Route 53','Observability'].map(node => `<span>${node}<b>Ready</b></span>`).join('')}</div><div class="demo-outcome"><strong id="provision-outcome">3–5 days → &lt;30 min</strong><span>Verified infrastructure delivery outcome.</span></div><div class="actions"><button class="button" type="button" id="provision-run">Provision platform</button><button class="button" type="button" id="provision-reset" disabled>Reset</button></div></article></div></div>`;
-    hero.after(demo);
-    let timers = []; const stop = () => { timers.forEach(clearTimeout); timers = []; }; const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const runSequence = (items, render, done) => { stop(); items.forEach((item, index) => { const run = () => { render(item, index); if (index === items.length - 1) done(); }; if (reduced()) run(); else timers.push(setTimeout(run, index * 650)); }); };
-    const resetIncident = () => { stop(); $('#system-state').textContent = '● Healthy'; $('#system-state').className = ''; $('#delivery-state').textContent = 'Healthy'; $('#observability-state').textContent = 'Ready'; $('#system-announcement').textContent = 'System reset. Interactive portfolio demonstration ready.'; $('#incident-badge').textContent = 'Healthy'; $('#incident-badge').className = ''; $('#incident-timeline').innerHTML = '<li>System healthy — primary environment is serving traffic.</li>'; $('#incident-outcome').textContent = '45 min → <60 sec recovery'; $('#incident-caption').textContent = 'Verified failover outcome represented as an interactive visualization.'; $('#incident-run').disabled = false; $('#incident-reset').disabled = true; };
-    const runIncident = () => { const sequence = [['Degraded','Route 53 health signal lost — simulation started.'],['Detected','00:01 Signal detected by health check.'],['Failing over','00:03 Failover initiated toward healthy environment.'],['Recovered','00:47 Traffic restored — system recovered.']]; $('#incident-run').disabled = true; $('#incident-reset').disabled = false; $('#system-state').textContent = '● Degraded'; $('#system-state').className = 'degraded'; $('#delivery-state').textContent = 'Protected'; runSequence(sequence, ([state, message], index) => { $('#incident-badge').textContent = state; $('#incident-badge').className = index === 3 ? '' : 'degraded'; $('#incident-timeline').innerHTML += `<li>${message}</li>`; $('#system-announcement').textContent = message; }, () => { $('#system-state').textContent = '● Healthy'; $('#system-state').className = ''; $('#incident-outcome').textContent = 'System recovered'; $('#incident-caption').textContent = 'Interactive visualization of the verified 45 min to under 60 sec recovery outcome.'; }); };
-    const resetProvision = () => { stop(); $$('#provision-nodes span').forEach(node => { node.className = ''; node.querySelector('b').textContent = 'Ready'; }); $('#provision-badge').textContent = 'Ready'; $('#provision-run').disabled = false; $('#provision-reset').disabled = true; };
-    const runProvision = () => { const nodes = $$('#provision-nodes span'); $('#provision-run').disabled = true; $('#provision-reset').disabled = false; $('#provision-badge').textContent = 'Provisioning'; runSequence(nodes, (node) => { node.className = 'provisioning'; node.querySelector('b').textContent = 'Provisioning'; }, () => { nodes.forEach(node => { node.className = 'ready'; node.querySelector('b').textContent = 'Ready'; }); $('#provision-badge').textContent = 'Infrastructure ready'; $('#system-announcement').textContent = 'Infrastructure ready. Verified delivery outcome: three to five days to under thirty minutes.'; }); };
-    incidentButton.addEventListener('click', () => { demo.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'center' }); runIncident(); }); $('#incident-run').addEventListener('click', runIncident); $('#incident-reset').addEventListener('click', resetIncident); $('#provision-run').addEventListener('click', runProvision); $('#provision-reset').addEventListener('click', resetProvision);
-    const kubesage = $('#kubesage'); if (kubesage) { const caseDemo = document.createElement('div'); caseDemo.className = 'kubesage-demo'; caseDemo.innerHTML = `<span class="case-status">Interactive architecture demonstration</span><p id="kubesage-demo-output">Demo incident: inspect how KubeSage could gather context for a simulated CrashLoopBackOff.</p><button type="button" class="button" id="kubesage-investigate">Investigate demo incident</button>`; kubesage.querySelector('.flagship-result')?.after(caseDemo); $('#kubesage-investigate').addEventListener('click', () => { const steps = ['Gathering Kubernetes events: checkout-api / CrashLoopBackOff.', 'Checking GitOps context: recent configuration change identified.', 'Retrieving operational evidence from ChromaDB.', 'Correlating context: likely resource configuration issue; evidence is presented for human review.']; let current = 0; const output = $('#kubesage-demo-output'); const show = () => { output.textContent = steps[current]; current += 1; if (current < steps.length && !reduced()) setTimeout(show, 700); }; show(); }); }
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) document.body.dataset.systemStage = entry.target.id || 'active'; }), { threshold: .45 }); ['experience','projects','lab','skills','contact'].map(id => $('#' + id)).filter(Boolean).forEach(section => observer.observe(section));
   }
   initAI(); initArchitecture(); initLenses(); initMap(); initAnalytics(); initPalette(); initEngineeringLab(); initLiveSystem();
 })();

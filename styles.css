@@ -152,3 +152,49 @@ footer a{color:#d5e3ff}
 .project:nth-child(n+4):hover{opacity:1}
 .ai-launcher{border-radius:99px!important;padding:.78rem 1.1rem!important}
 @media(max-width:680px){.nav-cta{display:inline-flex!important;margin-left:auto;padding:.52rem .7rem!important;border-radius:99px;font-size:.61rem}.section-intro{margin:-1.3rem 0 2rem;font-size:.92rem}.project-grid:before{padding:.85rem 1rem}.ai-launcher{padding:.7rem!important}}
+
+.platform-evidence{background:#f6f8fc;border-top:1px solid var(--line)}
+.platform-evidence .section-header{margin-bottom:2.6rem}
+.platform-evidence-grid,.platform-layout{display:grid;gap:1.4rem}
+.platform-evidence-grid{grid-template-columns:1.15fr .85fr;margin-bottom:1.4rem}
+.platform-layout{grid-template-columns:1.2fr .8fr}
+.artifact{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.2rem;box-shadow:0 12px 24px rgba(15,23,42,.04)}
+.artifact-header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px solid var(--line)}
+.artifact-label{font:500 .63rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.artifact-tag{display:inline-flex;align-items:center;padding:.3rem .5rem;border:1px solid var(--line);border-radius:999px;background:var(--paper);font:500 .56rem var(--mono);color:var(--muted)}
+.terminal-output{margin:0;background:#0f1724;color:#dfeaf9;border-radius:10px;border:1px solid #2b3b4d;padding:1rem;overflow:auto;font:500 .71rem/1.7 var(--mono);white-space:pre-wrap}
+.postmortem-body{display:grid;gap:.9rem}
+.postmortem-row{display:grid;grid-template-columns:110px minmax(0,1fr);gap:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--line)}
+.postmortem-row:last-child{border-bottom:0;padding-bottom:0}
+.postmortem-row span{font:500 .62rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.postmortem-row p{margin:0;color:var(--muted);font-size:.82rem;line-height:1.7}
+.architecture-diagram{display:grid;gap:.9rem;padding:1rem;background:linear-gradient(180deg,#f9fbff,#eef5ff);border:1px solid var(--line);border-radius:12px}
+.diagram-row{display:grid;gap:.7rem}
+.top-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+.middle-row{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bottom-row{grid-template-columns:1fr}
+.node{display:flex;align-items:center;justify-content:center;min-height:60px;border:1px solid #bfccf2;background:#fff;border-radius:10px;text-align:center;padding:.65rem;color:var(--ink);font:600 .68rem var(--mono);box-shadow:inset 0 0 0 1px rgba(59,83,128,.03)}
+.node-vpc{background:#edf4ff}
+.node-iam{background:#eefaf5}
+.node-ecs{background:#f6f2ff}
+.node-eks{background:#fff2ea}
+.node-alb{background:#ecf9ff}
+.node-r53{background:#f9f3df}
+.node-observe{background:#eef6ff}
+.decision-callouts{display:grid;gap:.8rem;margin-top:1rem}
+.decision-callout{padding:.9rem 1rem;border-left:2px solid var(--blue);background:var(--paper);border-radius:10px}
+.decision-callout strong{display:block;font:700 .78rem var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--ink);margin-bottom:.35rem}
+.decision-callout p{margin:0;color:var(--muted);font-size:.78rem;line-height:1.6}
+.metrics-panel{border:1px solid var(--line);border-radius:12px;padding:1rem;background:linear-gradient(180deg,#fdfefe,#f5f9ff)}
+.metrics-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:.8rem;border-bottom:1px solid var(--line);margin-bottom:.9rem;font:500 .62rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.metrics-header strong{color:var(--green)}
+.metric-grid{display:grid;gap:.8rem}
+.metric{display:grid;gap:.35rem}
+.metric label{font:500 .58rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.metric strong{font-size:1.15rem;letter-spacing:-.05em}
+.bar{display:block;height:9px;border-radius:999px;background:#e5ebf4;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,#1d9bf0,#21b2a0);border-radius:inherit}
+.button-ghost{background:transparent}
+.secondary-launcher{opacity:.88;transform:scale(.98)}
+@media(max-width:900px){.platform-evidence-grid,.platform-layout{grid-template-columns:1fr}.postmortem-row{grid-template-columns:1fr;gap:.25rem}}
+@media(max-width:680px){.postmortem-row{grid-template-columns:1fr}.diagram-row.middle-row{grid-template-columns:repeat(2,minmax(0,1fr))}.artifact{padding:1rem}.terminal-output{font-size:.62rem}}
