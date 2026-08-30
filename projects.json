@@ -2,5 +2,7 @@
   {"name":"KubeSage AI","category":"Kubernetes incident intelligence","technology":["Python","FastAPI","React","TypeScript","ChromaDB","Kubernetes","GitOps"],"source":"https://github.com/theycallmejc/kubesage-ai"},
   {"name":"FlowPilot","category":"Governed SDLC-to-QA agent workflow","technology":["Python","FastAPI","agent handoffs","human approval gates"],"source":"https://github.com/theycallmejc/openai-codex#flowpilot"},
   {"name":"AWS Platform IaC","category":"Multi-environment Terraform modules","technology":["Terraform","AWS ECS","EKS","GitHub Actions"],"source":"https://github.com/theycallmejc/aws-platform-iac"},
-  {"name":"AI Document Classifier","category":"RAG classification","technology":["TypeScript","AWS Bedrock","RAG","S3","PostgreSQL"],"source":"https://github.com/theycallmejc/ai-document-classifier"}
+  {"name":"AI Document Classifier","category":"RAG classification","technology":["TypeScript","AWS Bedrock","RAG","S3","PostgreSQL"],"source":"https://github.com/theycallmejc/ai-document-classifier"},
+  {"name":"Event Store-Replay Lambda","category":"Reliability / DR","technology":["AWS Lambda","Step Functions","DynamoDB","Splunk","TypeScript"],"source":"Private repo — details on request"},
+  {"name":"EPW Document Retrieval Adapter","category":"Integration / client work","technology":["TypeScript","AWS S3","SOAP","PostgreSQL","Lambda"],"source":"Private repo — details on request"}
 ]

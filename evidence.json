@@ -1,5 +1,5 @@
 [
-  {"claim":"Failover recovery","outcome":"45 minutes to under 60 seconds","context":"Route 53 health-check failover"},
-  {"claim":"Infrastructure delivery","outcome":"3–5 days to under 30 minutes","context":"Terraform Enterprise across three AWS accounts"},
-  {"claim":"Mean time to detect","outcome":"45 minutes to under 2 minutes","context":"Dynatrace and Splunk across 30+ endpoints"}
+  {"claim":"Failover recovery","outcome":"45 min → <60 sec","context":"Route 53 health-check failover"},
+  {"claim":"Infrastructure delivery","outcome":"3–5 days → <30 min","context":"Terraform Enterprise across three AWS accounts"},
+  {"claim":"Mean time to detect","outcome":"45 min → <2 min","context":"Dynatrace and Splunk across 30+ endpoints"}
 ]

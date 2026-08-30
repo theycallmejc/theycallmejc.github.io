@@ -1,9 +1,12 @@
 {
   "name": "Jwala Chaubey",
+  "title": "Senior Platform / SRE Engineer",
   "headline": "Senior Platform Engineer | SRE | AWS Cloud Infrastructure | DevOps Automation | AI-Assisted Platform Engineering",
   "location": "Pune, India",
   "links": {
+    "website": "https://theycallmejc.github.io/",
     "linkedin": "https://www.linkedin.com/in/jwala-chaubey/",
-    "github": "https://github.com/theycallmejc"
+    "github": "https://github.com/theycallmejc",
+    "email": "mailto:jwalachaubey@gmail.com"
   }
 }
