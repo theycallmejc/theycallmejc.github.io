@@ -1,164 +1,60 @@
 (() => {
-  'use strict';
-  const data = window.PORTFOLIO_DATA;
-  const endpoint = window.PORTFOLIO_AI_ENDPOINT || '';
-  const $ = selector => document.querySelector(selector);
-  const $$ = selector => [...document.querySelectorAll(selector)];
-  const STORAGE_KEY = 'jc-portfolio-ai-history-v1';
-  const state = { context: '', history: [], lastQuestion: '', lastAnswer: '', previousFocus: null };
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const drawer = $('.ai-drawer');
-  const input = $('#ai-input');
+  const backdrop = $('.ai-backdrop');
   const thread = $('#ai-thread');
-  const status = $('#ai-status');
-  const contextValue = $('#ai-context-value');
+  const input = $('#ai-input');
 
-  if (!data || !Array.isArray(data.projects)) {
-    console.warn('Portfolio data is unavailable; interactive sections are disabled.');
+  function openAI(question = '') {
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    backdrop.classList.add('open');
+    if (question) answer(question);
+    else input.focus();
   }
+  function closeAI() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    backdrop.classList.remove('open');
+  }
+  function answer(question) {
+    const q = document.createElement('div');
+    q.className = 'ai-message'; q.textContent = question;
+    const a = document.createElement('div');
+    a.className = 'ai-message';
+    const lower = question.toLowerCase();
+    a.textContent = lower.includes('terraform') || lower.includes('aws')
+      ? 'The strongest evidence is multi-account Terraform Enterprise and Environment-as-Code delivery, plus reusable ECS/EKS, VPC, IAM, ALB/NLB, and Route 53 modules.'
+      : lower.includes('kubernetes')
+        ? 'Jwala provisioned production EKS clusters with ALB ingress, managed node groups, IRSA, and Container Insights, and built KubeSage AI for evidence-led Kubernetes incident investigation.'
+        : 'The core reliability evidence is Route 53 health-check failover improving recovery from 45 minutes to under 60 seconds, and Dynatrace/Splunk reducing detection from 45 minutes to under 2 minutes.';
+    thread.append(q, a); thread.scrollTop = thread.scrollHeight;
+  }
+  $$('[data-ai-open]').forEach(button => button.addEventListener('click', () => openAI()));
+  $$('[data-ai-close]').forEach(button => button.addEventListener('click', closeAI));
+  $$('.ai-suggestions button').forEach(button => button.addEventListener('click', () => answer(button.dataset.question)));
+  $('#ai-form').addEventListener('submit', event => { event.preventDefault(); answer(input.value); input.value = ''; });
 
-  const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
-  const project = id => data.projects.find(item => item.id === id);
-  const evidence = (text, links, followups) => ({ text, links, followups });
-  const intents = [
-    { terms: ['flowpilot', 'sdlc', 'qa', 'human approval', 'agent handoff'], answer: () => evidence(project('flowpilot').description, [{ label: 'View FlowPilot', highlight: '#flowpilot' }], ['How are the human approval gates used?', 'Which other systems show AI-assisted engineering?']) },
-    { terms: ['kubesage', 'kubernetes', 'k8s', 'eks', 'container', 'retrieval'], answer: () => evidence(project('kubesage').description, [{ label: 'View KubeSage', highlight: '#kubesage' }, { label: 'View Kubernetes experience', highlight: '#experience' }], ['How does the retrieval layer work?', 'What Kubernetes experience supports this project?']) },
-    { terms: ['reliability', 'incident', 'recovery', 'failover', 'mttd', 'mttr', 'failure', 'strongest sre'], answer: () => evidence('The strongest reliability evidence is the Cognizant / JPMC-CCB platform: Route 53 health-check failover reduced recovery from 45 minutes to under 60 seconds, while Dynatrace and Splunk across 30+ endpoints reduced MTTD from 45 minutes to under 2 minutes. Event Store-Replay reduced MTTR from 4–6 hours to 45 minutes.', [{ label: 'View SRE evidence', highlight: '#cognizant-role|#replay|#kubesage' }], ['Show me the AWS and Terraform evidence.', 'What is the strongest Kubernetes project?']) },
-    { terms: ['aws', 'terraform', 'iac', 'cloud', 'provision', 'platform engineering'], answer: () => evidence('The strongest AWS and Terraform evidence is the multi-region Amazon ECS Fargate platform at Cognizant / JPMC-CCB, provisioned across 3 AWS accounts with Terraform Enterprise and Environment-as-Code. Delivery improved from 3–5 days to under 30 minutes. AWS Platform IaC adds reusable ECS/EKS, VPC, IAM, ALB/NLB, and Route53 modules with GitHub Actions gating.', [{ label: 'View production impact', highlight: '#cognizant-role' }, { label: 'View AWS Platform IaC', highlight: '#iac' }], ['What has Jwala built with Kubernetes?', 'Summarize the platform engineering evidence.']) },
-    { terms: ['ai', 'agent', 'rag', 'bedrock', 'classifier'], answer: () => evidence('The AI engineering work spans Amazon Bedrock and Claude for document classification, a RAG pipeline with S3 ingestion and embeddings, KubeSage AI for Kubernetes incident intelligence, and FlowPilot for governed SDLC-to-QA handoffs. These are presented as applied systems with context, retrieval, classification, or human approval.', [{ label: 'View AI systems', highlight: '#projects' }, { label: 'View AI capability map', highlight: '#skills' }], ['Tell me about KubeSage AI.', 'Tell me about FlowPilot.']) }
+  const palette = $('#command-palette');
+  const paletteInput = $('#palette-input');
+  const paletteList = $('#palette-list');
+  const commands = [
+    ['Experience', () => location.hash = '#experience'], ['Infrastructure evidence', () => location.hash = '#infrastructure-evidence'],
+    ['Systems', () => location.hash = '#projects'], ['Capabilities', () => location.hash = '#skills'], ['Contact', () => location.hash = '#contact'],
+    ['Ask about reliability', () => openAI('What production reliability problems have you solved?')], ['Ask about AWS and Terraform', () => openAI('Show me AWS and Terraform experience.')]
   ];
+  function renderCommands(filter = '') {
+    const matched = commands.filter(([name]) => name.toLowerCase().includes(filter.toLowerCase()));
+    paletteList.replaceChildren(...matched.map(([name, run]) => { const button = document.createElement('button'); button.textContent = name; button.addEventListener('click', () => { closePalette(); run(); }); return button; }));
+  }
+  function openPalette() { palette.classList.add('open'); palette.setAttribute('aria-hidden', 'false'); renderCommands(); paletteInput.value = ''; paletteInput.focus(); }
+  function closePalette() { palette.classList.remove('open'); palette.setAttribute('aria-hidden', 'true'); }
+  $('[data-palette-open]').addEventListener('click', openPalette);
+  paletteInput.addEventListener('input', () => renderCommands(paletteInput.value));
+  document.addEventListener('keydown', event => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); openPalette(); } if (event.key === 'Escape') { closePalette(); closeAI(); } });
+  palette.addEventListener('click', event => { if (event.target === palette) closePalette(); });
 
-  function localSearch(question) {
-    const query = question.toLowerCase();
-    const ranked = intents.map(intent => ({ intent, score: intent.terms.reduce((score, term) => score + (query.includes(term) ? 1 : 0), 0) })).sort((a, b) => b.score - a.score);
-    if (ranked[0]?.score) return ranked[0].intent.answer();
-    if (/(summary|background|experience|who)/.test(query)) return evidence(`${data.summary} The strongest evidence is the current Cognizant / JPMC-CCB role, supported by AWS platform delivery, reliability outcomes, controlled pipelines, and observability improvements.`, [{ label: 'View experience', highlight: '#experience' }, { label: 'View capabilities', highlight: '#skills' }], ['What production reliability problems have been solved?', 'Which projects demonstrate platform engineering?']);
-    return evidence("I can answer from verified portfolio data about platform engineering, SRE, AWS, Kubernetes, Terraform, AI systems, projects, and outcomes. I don't have verified portfolio information outside that scope.", [], ['Ask about reliability.', 'Ask about AWS and Terraform.', 'Ask about FlowPilot.']);
-  }
-  function focusables(container) { return [...container.querySelectorAll('button:not([disabled]), [href], input:not([disabled])')]; }
-  function setContext(context = '') { state.context = context; contextValue.textContent = context || 'All verified portfolio data'; }
-  function openAI(question = '', context = '') { state.previousFocus = document.activeElement; setContext(context); document.body.classList.add('ai-open'); drawer.setAttribute('aria-hidden', 'false'); input.value = question; input.focus(); if (question) ask(question); }
-  function closeAI() { document.body.classList.remove('ai-open'); drawer.setAttribute('aria-hidden', 'true'); state.previousFocus?.focus(); }
-  function saveHistory() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state.history.slice(-12))); } catch (_) { /* Storage may be disabled by the browser. */ }
-  }
-  function addMessage(role, text, links = [], followups = [], persist = true) {
-    const message = document.createElement('article');
-    message.className = `ai-message ${role}`;
-    message.innerHTML = `<small>${role === 'user' ? 'You' : 'Portfolio Intelligence'}</small><p>${escapeHtml(text)}</p>${links.map(link => `<button class="ai-evidence" type="button" data-highlight="${link.highlight || ''}">${escapeHtml(link.label)} →</button>`).join(' ')}${followups.length ? `<div class="ai-followups">${followups.map(item => `<button class="ai-followup" type="button" data-question="${escapeHtml(item)}">${escapeHtml(item)}</button>`).join('')}</div>` : ''}`;
-    thread.append(message);
-    message.querySelectorAll('[data-highlight]').forEach(button => button.addEventListener('click', () => go(button.dataset.highlight, true)));
-    message.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => ask(button.dataset.question)));
-    message.scrollIntoView({ block: 'end' });
-    if (persist) {
-      state.history.push({ role, text, links, followups });
-      state.history = state.history.slice(-12);
-      saveHistory();
-    }
-  }
-  function restoreHistory() {
-    try {
-      const entries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-      if (!Array.isArray(entries)) return;
-      entries.slice(-12).forEach(entry => {
-        if (!['user', 'assistant'].includes(entry.role) || typeof entry.text !== 'string') return;
-        addMessage(entry.role, entry.text, Array.isArray(entry.links) ? entry.links : [], Array.isArray(entry.followups) ? entry.followups : [], false);
-        state.history.push(entry);
-      });
-    } catch (_) { /* A malformed or unavailable stored value should not block the drawer. */ }
-  }
-  async function ask(question) {
-    const clean = question.trim().slice(0, 240); if (!clean) return;
-    state.lastQuestion = clean; addMessage('user', clean); input.value = ''; status.textContent = 'Searching verified portfolio context...';
-    let result;
-    try {
-      if (!endpoint) throw new Error('No live endpoint configured');
-      const controller = new AbortController(); const timeout = setTimeout(() => controller.abort(), 8000);
-      const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: clean, context: data, focus: state.context }), signal: controller.signal }); clearTimeout(timeout);
-      if (!response.ok) throw new Error('Live endpoint unavailable');
-      const payload = await response.json(); result = evidence(payload.answer || "I don't have verified portfolio information about that.", payload.links || [], payload.followups || []); $('#ai-mode').textContent = 'AI connected'; status.textContent = 'AI connected — grounded in verified career data.';
-    } catch (_) { result = localSearch(clean); $('#ai-mode').textContent = 'Local portfolio index'; status.textContent = 'Local portfolio index — deterministic search of verified career data.'; }
-    state.lastAnswer = result.text; addMessage('assistant', result.text, result.links, result.followups);
-  }
-  function go(target, closeDrawer = false) { const targets = target.split('|').map(item => $(item)).filter(Boolean); const node = targets[0]; if (!node) return; if (closeDrawer) closeAI(); node.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' }); targets.forEach(item => { item.classList.add('highlight'); setTimeout(() => item.classList.remove('highlight'), 1400); }); history.replaceState(null, '', target.split('|')[0]); }
-  function initAI() {
-    if (!drawer || !input || !thread || !status || !contextValue) return;
-    $$('[data-ai-open]').forEach(button => button.addEventListener('click', () => openAI(button.dataset.question || '', button.dataset.context || '')));
-    $$('[data-ai-close]').forEach(element => element.addEventListener('click', closeAI));
-    const clearContext = $('#ai-clear-context');
-    const clearHistory = $('#ai-clear-history');
-    const aiForm = $('#ai-form');
-    const aiSuggestions = $('#ai-suggestions');
-    if (clearContext) clearContext.addEventListener('click', () => setContext());
-    if (clearHistory) clearHistory.addEventListener('click', () => {
-      state.history = []; thread.replaceChildren();
-      try { localStorage.removeItem(STORAGE_KEY); } catch (_) { /* Storage may be disabled by the browser. */ }
-      status.textContent = 'Chat cleared. Grounded in verified career data.';
-    });
-    if (aiForm) aiForm.addEventListener('submit', event => { event.preventDefault(); ask(input.value); });
-    if (aiSuggestions) aiSuggestions.addEventListener('click', event => { const button = event.target.closest('[data-question]'); if (button) ask(button.dataset.question); });
-    document.addEventListener('click', event => {
-      const button = event.target.closest('button[data-question]');
-      if (!button || button.closest('.ai-drawer')) return;
-      event.preventDefault(); event.stopPropagation();
-      openAI(button.dataset.question, button.dataset.context || 'Relevant portfolio evidence');
-    }, true);
-    document.addEventListener('keydown', event => { if (!document.body.classList.contains('ai-open')) return; if (event.key === 'Escape') { event.preventDefault(); closeAI(); } if (event.key === 'Tab') { const items = focusables(drawer); const first = items[0], last = items.at(-1); if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); } } });
-    restoreHistory();
-  }
-  function initArchitecture() { const nodes = $$('.arch-node'), arrows = $$('.arch-arrow'), help = $('#arch-help'); if (!nodes.length || !arrows.length || !help) return; let active = 0; const show = index => { nodes.forEach((node, i) => node.classList.toggle('flow-active', i === index)); arrows.forEach((arrow, i) => arrow.classList.toggle('flow-active', i === index)); help.textContent = nodes[index].dataset.purpose; }; nodes.forEach((node, index) => ['focus', 'mouseenter'].forEach(event => node.addEventListener(event, () => show(index)))); show(0); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => show(active = (active + 1) % nodes.length), 2800); }
-  function initLenses() { const output = $('#lens-output'); const proof = $$('.proof-item'); if (!output || !proof.length || !data?.aiContext?.lenses) return; proof.forEach((item, index) => item.dataset.metric = ['recovery','provisioning','detection','delivery'][index]); $$('[data-lens]').forEach(button => button.addEventListener('click', () => { const lens = data.aiContext.lenses[button.dataset.lens]; $$('[data-lens]').forEach(item => item.classList.toggle('active', item === button)); const emphasis = button.dataset.lens === 'SRE / Reliability' ? ['recovery','detection'] : button.dataset.lens === 'AWS Infrastructure' ? ['provisioning','delivery'] : []; proof.forEach(item => item.classList.toggle('lens-emphasis', emphasis.includes(item.dataset.metric))); data.projects.forEach(item => $('#' + item.id)?.classList.toggle('lens-emphasis', lens.projects.includes(item.id))); output.classList.add('visible'); output.innerHTML = `<strong>${button.dataset.lens} lens</strong><p>Relevant evidence: ${lens.projects.map(id => project(id)?.name).join(' · ')}</p><p>Relevant stack: ${lens.skills.flatMap(key => data.skills[key]).join(' · ')}</p><div class="actions">${lens.questions.map(question => `<button class="button" type="button" data-question="${escapeHtml(question)}">${escapeHtml(question)}</button>`).join('')}</div>`; output.querySelectorAll('[data-question]').forEach(item => item.addEventListener('click', () => openAI(item.dataset.question, button.dataset.lens))); })); }
-  function initMap() { $$('[data-map-target]').forEach(button => button.addEventListener('click', () => button.dataset.question ? openAI(button.dataset.question, button.dataset.context) : go(button.dataset.mapTarget))); }
-  function initAnalytics() {
-    document.addEventListener('click', event => {
-      const cta = event.target.closest('[data-cta]');
-      if (!cta) return;
-      window.dispatchEvent(new CustomEvent('portfolio:cta', { detail: { name: cta.dataset.cta, href: cta.href || '' } }));
-    });
-  }
-  function initPalette() { const palette = $('#command-palette'), paletteInput = $('#palette-input'), list = $('#palette-list'); if (!palette || !paletteInput || !list) return; let previousFocus, index = 0; const commands = [['Navigate', 'Experience', () => go('#experience')], ['Navigate', 'Projects', () => go('#projects')], ['Navigate', 'Technical Expertise', () => go('#skills')], ['Navigate', 'Contact', () => go('#contact')], ['Ask', 'Ask about reliability', () => openAI('What production reliability problems have you solved?', 'SRE / Reliability')], ['Ask', 'Ask about Kubernetes', () => openAI('What has Jwala built with Kubernetes?', 'Kubernetes')], ['Ask', 'Ask about AWS/Terraform', () => openAI('Show me your strongest AWS and Terraform experience.', 'AWS Infrastructure')], ['Ask', 'Ask about AI systems', () => openAI('What is the AI engineering experience?', 'AI Infrastructure')], ['Ask', 'Ask about KubeSage', () => openAI('Tell me about KubeSage AI.', 'KubeSage AI')], ['Explore', 'KubeSage architecture', () => go('#kubesage-architecture')], ['Explore', 'FlowPilot', () => go('#flowpilot')], ['Explore', 'AWS Platform IaC', () => go('#iac')], ['Contact', 'LinkedIn', () => window.open(data.identity.links.linkedin, '_blank', 'noopener,noreferrer')], ['Contact', 'GitHub', () => window.open(data.identity.links.github, '_blank', 'noopener,noreferrer')], ['Contact', 'Email', () => { window.location.href = data.identity.links.email; }]];
-    const render = () => { const filtered = commands.filter(command => `${command[0]} ${command[1]}`.toLowerCase().includes(paletteInput.value.toLowerCase())); index = Math.min(index, Math.max(0, filtered.length - 1)); let group = ''; list.innerHTML = filtered.map((command, i) => { const heading = command[0] !== group ? `<div class="palette-group">${command[0]}</div>` : ''; group = command[0]; return `${heading}<button class="palette-item${i === index ? ' active' : ''}" type="button" data-index="${i}"><span>${command[1]}</span><kbd>Enter</kbd></button>`; }).join('') || '<div class="palette-empty">No commands match.</div>'; list.querySelectorAll('[data-index]').forEach(item => item.addEventListener('click', () => { close(); filtered[Number(item.dataset.index)][2](); })); };
-    const open = () => { previousFocus = document.activeElement; palette.classList.add('open'); palette.setAttribute('aria-hidden', 'false'); index = 0; paletteInput.value = ''; render(); paletteInput.focus(); }; const close = () => { palette.classList.remove('open'); palette.setAttribute('aria-hidden', 'true'); previousFocus?.focus(); };
-    palette.addEventListener('click', event => { if (event.target === palette) close(); });
-    window.addEventListener('keydown', event => { if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); palette.classList.contains('open') ? close() : open(); return; } if (!palette.classList.contains('open')) return; if (event.key === 'Escape') { event.preventDefault(); close(); } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') { event.preventDefault(); const count = list.querySelectorAll('[data-index]').length; if (count) { index = (index + (event.key === 'ArrowDown' ? 1 : -1) + count) % count; render(); } } else if (event.key === 'Enter') { event.preventDefault(); list.querySelector(`[data-index="${index}"]`)?.click(); } }); paletteInput.addEventListener('input', () => { index = 0; render(); });
-  }
-  function initEngineeringLab() {
-    const skills = $('#skills');
-    if (!skills) return;
-    const section = document.createElement('section');
-    section.className = 'section systems-lab'; section.id = 'lab'; section.setAttribute('aria-labelledby', 'lab-title');
-    section.innerHTML = `<div class="shell"><div class="section-header"><span class="number">03</span><h2 id="lab-title">Engineering evidence lab</h2><span class="rule"></span><span class="section-note">Sanitized simulations</span></div><p class="section-intro">Interactive models explain the engineering decisions behind the outcomes above. They are deterministic demonstrations, not confidential production systems or incident records.</p><div class="evidence-grid">${[['Infrastructure delivery','3–5 days → <30 min','Multi-account AWS infrastructure standardized through Terraform Enterprise and Environment-as-Code.','Reusable infrastructure workflows and controlled plan/apply delivery across three AWS accounts.','Terraform Enterprise · AWS · delivery approvals'],['Reliability signal','45 min → <2 min','Dynatrace and Splunk established faster detection across 30+ endpoints.','Unified monitoring and logging around operational endpoints to shorten time-to-signal.','Dynatrace · Splunk · observability'],['Failover recovery','45 min → <60 sec','Route 53 health checks support automated routing to a healthy environment.','Health-based DNS failover replaced a slower recovery path for the platform.','Route 53 · ECS Fargate · health checks']].map(card => `<article class="evidence-card"><span>${card[0]}</span><strong>${card[1]}</strong><p>${card[2]}</p><button type="button" class="detail-toggle" aria-expanded="false">View engineering details</button><div class="evidence-detail" hidden><b>Engineering change</b><p>${card[3]}</p><b>Evidence</b><p>${card[4]}</p></div></article>`).join('')}</div><div class="lab-grid"><article class="architecture-explorer"><div><span class="kicker">Architecture explorer</span><h3>Sanitized AWS platform</h3><p>Inspect a representative delivery and runtime path. Components describe engineering trade-offs, not a client implementation.</p><div class="platform-flow" role="list"><button class="platform-node active" type="button" data-architecture="route53" role="listitem">Users<br><b>Route 53</b></button><span>↓</span><button class="platform-node" type="button" data-architecture="alb" role="listitem">Traffic<br><b>ALB / NLB</b></button><span>↓</span><button class="platform-node" type="button" data-architecture="ecs" role="listitem">Compute<br><b>ECS Fargate</b></button><span>↓</span><button class="platform-node" type="button" data-architecture="observe" role="listitem">Signal<br><b>Observability</b></button></div></div><aside class="architecture-detail" aria-live="polite"><span id="architecture-kicker">ROLE</span><h4 id="architecture-name">Route 53 health-based failover</h4><p id="architecture-description">Routes traffic to a healthy environment when a monitored endpoint fails.</p><div><b>Design decision</b><p id="architecture-decision">DNS-level failover provides a simple resilience layer ahead of application traffic routing.</p></div></aside></article><article class="resilience-simulator"><span class="kicker">Interactive engineering simulation</span><h3>Break my infrastructure</h3><p>Select a failure mode to see the protective path in a sanitized blue/green ECS platform.</p><div class="scenario-controls" role="group" aria-label="Failure scenarios"><button class="scenario active" type="button" data-scenario="deployment">Bad deployment</button><button class="scenario" type="button" data-scenario="health">Fail health check</button><button class="scenario" type="button" data-scenario="traffic">10× traffic spike</button></div><div class="simulation-state" id="simulation-state" aria-live="polite"><strong>Ready: blue environment is serving traffic.</strong><span>Choose a scenario to run the simulation.</span></div><div class="simulation-metrics"><div><span>Error rate</span><b id="metric-error">0.13%</b></div><div><span>Healthy tasks</span><b id="metric-tasks">10 / 10</b></div><div><span>Traffic</span><b id="metric-traffic">Blue 100%</b></div></div><ol class="simulation-steps" id="simulation-steps"><li>Deploy candidate to green</li><li>Run health validation</li><li>Keep traffic on healthy blue</li><li>Rollback candidate and preserve service</li></ol></article></div><article class="incident-lab"><div><span class="kicker">Incident response lab</span><h3>Investigate a simulated API degradation</h3><p>Follow a short, evidence-led diagnostic path. This is an interactive troubleshooting example.</p></div><div class="incident-console"><div class="incident-metrics"><span>SEV-2 / API</span><b>CPU 91%</b><b>P95 4.1s</b><b>5xx 14%</b><b>Tasks 3 / 10</b></div><div class="incident-tabs" role="tablist" aria-label="Investigation evidence"><button type="button" role="tab" aria-selected="true" data-incident="metrics">Metrics</button><button type="button" role="tab" aria-selected="false" data-incident="logs">Logs</button><button type="button" role="tab" aria-selected="false" data-incident="deploy">Recent deployment</button><button type="button" role="tab" aria-selected="false" data-incident="resolution">Resolution</button></div><div class="incident-output" id="incident-output" aria-live="polite">Detection: CPU, latency, and 5xx alerts breach the service SLO. Start by correlating the change window with resource pressure.</div></div></article><article class="decisions"><span class="kicker">Engineering decisions</span><h3>Choose the smallest reliable control plane</h3><details><summary>ECS vs EKS</summary><p>ECS Fargate is a strong fit when reducing container-operational overhead is the priority. EKS becomes more compelling when Kubernetes portability and its ecosystem are explicit requirements. Jwala has delivered on both ECS and EKS.</p></details><details><summary>ALB vs NLB</summary><p>ALB supports HTTP/S routing, TLS termination, health checks, and path-based rules. NLB fits connection-level, high-throughput, or static-IP constraints. The choice follows protocol and routing needs.</p></details><details><summary>Blue/green vs rolling deployment</summary><p>Blue/green isolates a candidate environment and makes rollback clear when health validation fails; it trades additional capacity for safer traffic transitions.</p></details></article></div>`;
-    skills.before(section);
-    $$('.detail-toggle', section).forEach(button => button.addEventListener('click', () => { const detail = button.nextElementSibling; const expanded = button.getAttribute('aria-expanded') === 'true'; button.setAttribute('aria-expanded', String(!expanded)); button.textContent = expanded ? 'View engineering details' : 'Hide engineering details'; detail.hidden = expanded; }));
-    const architecture = { route53:['Route 53 health-based failover','Routes traffic to a healthy environment when a monitored endpoint fails.','DNS-level failover provides a simple resilience layer ahead of application traffic routing.'], alb:['ALB / NLB traffic boundary','Directs traffic using the routing model that suits the service protocol and constraints.','ALB fits HTTP/S routing, TLS termination, health checks, and path rules; NLB suits connection-level and static-IP needs.'], ecs:['ECS Fargate workload layer','Runs containerized services without managing the underlying server fleet.','Fargate reduces operational overhead when the platform does not require Kubernetes-specific control.'], observe:['Observability signal','Brings metrics, logs, and alerts together so abnormal behavior is detected and investigated quickly.','Fast detection only matters when telemetry connects symptoms to a practical investigation path.'] };
-    $$('.platform-node', section).forEach(button => button.addEventListener('click', () => { const item = architecture[button.dataset.architecture]; $$('.platform-node', section).forEach(node => node.classList.toggle('active', node === button)); $('#architecture-name').textContent = item[0]; $('#architecture-description').textContent = item[1]; $('#architecture-decision').textContent = item[2]; }));
-    const scenarios = { deployment:['Health validation failed; blue remains live and the green candidate is rolled back.','7.8%','10 / 10','Blue 100%',['Deploy candidate to green','Health validation reports error rate above 2% threshold','Keep production traffic on blue','Rollback green candidate; service remains available']],health:['A failed health check removes an unhealthy target from service.','0.13%','9 / 10','Healthy targets only',['Health check fails for one task','Load balancer removes unhealthy target','ECS replaces the task','Healthy capacity is restored']],traffic:['Capacity signal rises; the service scales while alerting watches the SLO.','0.4%','14 / 14','Balanced',['Traffic increases 10×','Capacity and latency alerts trigger','Scale healthy task count','Maintain service while monitoring error budget']] };
-    $$('.scenario', section).forEach(button => button.addEventListener('click', () => { const scenario = scenarios[button.dataset.scenario]; $$('.scenario', section).forEach(node => node.classList.toggle('active', node === button)); $('#simulation-state').innerHTML = `<strong>${scenario[0]}</strong><span>Simulation complete — deterministic frontend model.</span>`; $('#metric-error').textContent = scenario[1]; $('#metric-tasks').textContent = scenario[2]; $('#metric-traffic').textContent = scenario[3]; $('#simulation-steps').innerHTML = scenario[4].map(step => `<li>${step}</li>`).join(''); }));
-    const incident = { metrics:'Detection: CPU, latency, and 5xx alerts breach the service SLO. Start by correlating the change window with resource pressure.', logs:'Logs: connection acquisition timeouts rise after the latest release. The application is exhausting its connection pool under load.', deploy:'Recent deployment: the candidate changed database connection behavior. This is the highest-signal change to validate.', resolution:'Mitigation: roll back the candidate and restore stable connection settings. Permanent fix: load-test pool sizing, add saturation alerts, and validate connection limits before traffic shift.' };
-    $$('.incident-tabs button', section).forEach(button => button.addEventListener('click', () => { $$('.incident-tabs button', section).forEach(tab => tab.setAttribute('aria-selected', String(tab === button))); $('#incident-output').textContent = incident[button.dataset.incident]; }));
-  }
-  function initLiveSystem() {
-    const launcher = $('.ai-launcher');
-    if (launcher) {
-      launcher.innerHTML = '<span aria-hidden="true">✦</span><span>Ask Portfolio AI</span>';
-      launcher.setAttribute('aria-label', 'Open Portfolio AI');
-      launcher.classList.add('secondary-launcher');
-    }
-    const nav = $('header nav');
-    if (nav && !$('.nav-command')) {
-      const command = document.createElement('button');
-      command.className = 'nav-command';
-      command.type = 'button';
-      command.setAttribute('aria-label', 'Open command palette');
-      command.textContent = '⌘ K';
-      command.addEventListener('click', () => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true })));
-      $('.nav-cta')?.before(command);
-    }
-    const intelligenceAction = $('.intelligence-card [data-ai-open]');
-    if (intelligenceAction) {
-      intelligenceAction.textContent = 'Get recruiter summary →';
-      intelligenceAction.dataset.context = 'Portfolio overview';
-      intelligenceAction.dataset.question = 'What is the strongest evidence for this platform and SRE profile?';
-    }
-  }
-  initAI(); initArchitecture(); initLenses(); initMap(); initAnalytics(); initPalette(); initEngineeringLab(); initLiveSystem();
+  const lenses = { 'Platform Engineering': 'Terraform Enterprise, reusable AWS modules, delivery controls, and ECS/EKS patterns.', 'SRE / Reliability': 'Route 53 failover, observability, incident response, and measurable recovery and detection improvements.', 'AWS Infrastructure': 'AWS ECS, EKS, VPC, IAM, ALB/NLB, Route 53, CloudWatch, and Terraform automation.' };
+  $$('.lens-button').forEach(button => button.addEventListener('click', () => { $('#lens-output').textContent = lenses[button.dataset.lens]; }));
 })();
