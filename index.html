@@ -190,7 +190,7 @@
                 <h3>Cognizant / JPMC-CCB</h3>
                 <p>SRE Lead — Platform / DevOps</p>
               </div>
-              <time>Sep 2024 – Present</time>
+              <time>Jul 2025 &ndash; Jul 2026</time>
             </div>
             <div class="impact-grid">
               <div class="impact">
@@ -205,7 +205,7 @@
               <div class="impact">
                 <label>Platform delivery</label
                 ><strong>3–5 days → &lt;30 min</strong>
-                <p>3 AWS accounts, Terraform Enterprise</p>
+                <p>Development, UAT, and production delivery</p>
               </div>
               <div class="impact">
                 <label>Observability</label><strong>45 min → &lt;2 min</strong>
@@ -220,14 +220,16 @@
                   rollback controls.
                 </li>
                 <li>
-                  Applied Environment-as-Code to standardize delivery across AWS
-                  accounts.
+                  Automated provisioning and operational workflows with
+                  Terraform Enterprise, Git, Lambda, and EventBridge across
+                  development, UAT, and production.
                 </li>
               </ul>
               <div>
                 <p>
-                  Operating focus: resilience, repeatable infrastructure,
-                  controlled change, and fast incident signal.
+                  Also implemented zero-downtime deployments with ECS Fargate,
+                  ALB weighted routing, Route 53 health checks, automated
+                  rollback, and automated ACM certificate rotation.
                 </p>
                 <div class="tags">
                   <span class="tag">AWS ECS</span
@@ -301,51 +303,56 @@
                 <label>Infrastructure</label
                 ><strong>Multi-account Terraform</strong>
                 <p>
-                  Dev, test, and production delivery with TFE and Sentinel
-                  guardrails
+                  Dev, test, and production delivery with Terraform Enterprise
+                  controls
                 </p>
               </div>
               <div class="impact">
-                <label>Data quality</label
-                ><strong>630 tests / 95% coverage</strong>
-                <p>Python ETL normalization and quarantine workflow</p>
+                <label>Data quality</label><strong>Python ETL workflows</strong>
+                <p>
+                  Validation, transformation, exception handling, and audit
+                  logging
+                </p>
               </div>
               <div class="impact">
                 <label>AI matching</label
                 ><strong>Bedrock on ECS Fargate</strong>
-                <p>Confidence-band human review for semantic matching</p>
+                <p>
+                  LLMs, embeddings, semantic search, and operational controls
+                </p>
               </div>
               <div class="impact">
-                <label>Security</label><strong>Private VPC-only API</strong>
-                <p>No-internet-route network and ADFS/JWT authorization</p>
+                <label>Delivery</label><strong>Controlled CI/CD</strong>
+                <p>Jenkins, Spinnaker, Git, and Terraform Enterprise</p>
               </div>
             </div>
             <div class="role-details">
               <ul>
                 <li>
-                  Delivered additive, zero-destroy infrastructure through
-                  Terraform Enterprise plans and 200+ Sentinel policy-as-code
-                  guardrails for ECS Fargate, IAM, Bedrock, API Gateway,
-                  EventBridge, S3, Secrets Manager, and KMS.
+                  Designed and supported Terraform infrastructure across dev,
+                  test, and production for ECS Fargate, Lambda, API Gateway,
+                  IAM, S3, EventBridge, KMS, Secrets Manager, Aurora PostgreSQL,
+                  and supporting AWS services.
                 </li>
                 <li>
-                  Built a Python 3.12 Lambda pipeline for CSV, JSON, XML,
-                  Parquet, and Excel files using validation, canonicalization,
-                  transition, SHA-256 structure fingerprinting, versioning, and
-                  auditable quarantine paths.
+                  Developed Python services, ETL workflows, and REST APIs for a
+                  market-data platform, including data validation,
+                  transformation, exception handling, automated testing, audit
+                  logging, and production monitoring.
                 </li>
                 <li>
-                  Containerized a run-to-completion agentic matching engine with
-                  Claude Opus and Titan embeddings, BM25/dense/RRF scoring, and
-                  confidence-band human-in-the-loop review.
+                  Supported an AI-assisted matching service using Amazon
+                  Bedrock, LLMs, embeddings, and semantic search; containerized
+                  with Docker and deployed on ECS Fargate with health
+                  monitoring.
                 </li>
               </ul>
               <div>
                 <p>
-                  Built private API Gateway and Lambda services with pydantic,
-                  SQLAlchemy, Aurora PostgreSQL, and ADFS/JWT authorization;
-                  owned PrivateLink, endpoint, security-group, and CI/CD
-                  delivery through Jenkins, Jules, Spinnaker, and TFE.
+                  Supported production readiness through CloudWatch monitoring,
+                  service health checks, API troubleshooting, IAM controls, and
+                  secure service connectivity; maintained Jenkins, Spinnaker,
+                  Git, and Terraform Enterprise delivery workflows.
                 </p>
                 <div class="tags">
                   <span class="tag">Python</span
@@ -354,7 +361,7 @@
                   ><span class="tag">Bedrock</span
                   ><span class="tag">API Gateway</span
                   ><span class="tag">Aurora PostgreSQL</span
-                  ><span class="tag">Sentinel</span
+                  ><span class="tag">CloudWatch</span
                   ><span class="tag">Jenkins / Spinnaker</span>
                 </div>
               </div>
